@@ -1,15 +1,22 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import "../App.scss";
+import "../css/variable.scss";
 
 const Home = () => {
-  return <Ex>home</Ex>;
+  return (
+    <div>
+      <Ex>home</Ex>
+    </div>
+  );
 };
 
 export default Home;
 
 const Ex = styled.div`
   width: 200px;
-  height: 200px;
-  background-color: #ffcc99;
+  height: 650px;
+  background-color: transparent;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.61);
 `;
