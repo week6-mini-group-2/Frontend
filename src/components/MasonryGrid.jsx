@@ -6,7 +6,7 @@ import Masonry from "@mui/lab/Masonry";
 import { styled } from "@mui/material/styles";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getData } from "../redux/modules/post";
+import post, { getData } from "../redux/modules/post";
 
 const Label = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",

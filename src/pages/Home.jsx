@@ -27,7 +27,6 @@ const StContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
-
 const GridWrap = styled.div`
   .grid {
     background-color: var(--primary-color);

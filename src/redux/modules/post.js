@@ -11,11 +11,11 @@ const initialState = {
       title: "",
       content: "",
       img: "",
+=======
     },
   ],
   isLoading: false,
 };
-
 export const getData = createAsyncThunk("post/getData", async (_, thunkAPI) => {
   try {
     const res = await axios.get("http://localhost:3002/posts");
