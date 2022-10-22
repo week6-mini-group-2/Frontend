@@ -1,36 +1,12 @@
 {
   "posts": [
     {
-      "category": 1,
-      "postId": 1,
-      "nickname": "typicode",
-      "title": "json-server",
-      "comment": "first",
-      "img": "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f"
-    },
-    {
-      "category": 3,
-      "postId": 11,
-      "nickname": "typicode",
-      "title": "json-server",
-      "comment": "2",
-      "img": "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f"
-    },
-    {
-      "category": 1,
-      "postId": 21,
-      "nickname": "typicode",
-      "title": "json-server",
-      "comment": "3",
-      "img": "https://images.unsplash.com/photo-1597645587822-e99fa5d45d25"
-    },
-    {
-      "category": 4,
-      "postId": 31,
-      "nickname": "typicode",
-      "title": "json-server",
-      "comment": "4",
-      "img": "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1"
+      "postId": 1666426550859,
+      "title": "11",
+      "content": "111",
+      "img": "https://src.hidoc.co.kr/image/lib/2022/4/21/1650520586082_0.jpg",
+      "id": 1
+=======
     }
   ],
   "comments": [

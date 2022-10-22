@@ -34,13 +34,15 @@ const MasonryGrid = () => {
         display: "flex",
         justifyContent: "center",
         marginTop: "20%",
-      }}>
+      }}
+    >
       <Box style={{ width: "90rem", minHeight: "60rem" }}>
         <Masonry columns={6} spacing={3} id="hoverAni">
           {itemData.map((item) => (
             <div
               key={item.postId}
-              style={{ borderRadius: 6, boxShadow: "var(--grid-shadow)" }}>
+              style={{ borderRadius: 6, boxShadow: "var(--grid-shadow)" }}
+            >
               <img
                 src={`${item.img}?w=162&auto=format`}
                 srcSet={`${item.img}?w=162&auto=format&dpr=2 2x`}
@@ -62,13 +64,15 @@ const MasonryGrid = () => {
                   borderTopRightRadius: 0,
                   backgroundColor: "var(--grid-color)",
                   display: "block",
-                }}>
+                }}
+              >
                 <div
                   style={{
                     fontSize: "20px",
                     fontWeight: "bold",
                     color: "var(--white-color)",
-                  }}>
+                  }}
+                >
                   title : {item.title}
                 </div>
                 <div
@@ -76,7 +80,8 @@ const MasonryGrid = () => {
                     fontSize: "20px",
                     fontWeight: "100",
                     color: "var(--white-color)",
-                  }}>
+                  }}
+                >
                   nickname : {item.nickname}
                 </div>
               </Label>

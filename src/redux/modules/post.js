@@ -5,38 +5,36 @@ import axios from "axios";
 const initialState = {
   posts: [
     {
-      category: 0,
+      // category: 0,
       postId: 0,
-      nickname: "buddle",
-      title: "test",
-      comment: "test",
-      img: "https://images.unsplash.com/photo-1627328715728-7bcc1b5db87d",
+      // nickname: "buddle",
+      title: "",
+      content: "",
+      img: "",
+=======
     },
   ],
   isLoading: false,
 };
-
-export const getData = createAsyncThunk(
-  "post/getData",
-  async (payload, thunkAPI) => {
-    try {
-      const res = await axios.get("http://localhost:3002/posts");
-      //const todoData = res.data;
-      console.log(res);
-      /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
-      return thunkAPI.fulfillWithValue(res.data);
-    } catch (err) {
-      console.log(err);
-      return thunkAPI.rejectWithValue(err);
-    }
+export const getData = createAsyncThunk("post/getData", async (_, thunkAPI) => {
+  try {
+    const res = await axios.get("http://localhost:3002/posts");
+    //const todoData = res.data;
+    console.log(res);
+    /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
+    return thunkAPI.fulfillWithValue(res.data);
+  } catch (err) {
+    console.log(err);
+    return thunkAPI.rejectWithValue(err);
   }
-);
+});
 
 /* 게시글 id 값을 부여 후 todo 추가 get -> post  */
 
 export const postData = createAsyncThunk(
   "post/postData",
   async (payload, thunkAPI) => {
+    console.log("payload:", payload);
     try {
       const res = await axios.post("http://localhost:3002/posts", payload);
       console.log("post res:", res);
