@@ -25,6 +25,7 @@ const StHeaderContainer = styled.div`
   align-items: center;
   padding: 1em 1.5em;
   box-shadow: 0em 0em 1em lightgray;
+  position: sticky;
 `;
 
 const StLogo = styled.img`

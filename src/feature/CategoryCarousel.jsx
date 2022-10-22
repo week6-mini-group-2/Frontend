@@ -15,7 +15,7 @@ const Category = ({ onclick }) => {
   return (
     <>
       <Swiper
-        slidesPerView={5}
+        slidesPerView={4}
         centeredSlides={false}
         spaceBetween={30}
         grabCursor={true}

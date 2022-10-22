@@ -10,12 +10,19 @@ const Home = () => {
   return (
     <>
       <Header />
-      <Category />
+      <StContainer>
+        <Category />
+      </StContainer>
     </>
   );
 };
 
 export default Home;
+
+const StContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 // const onChange = (e) => {
 //   const REGID = /^(?=.*[a-z0-9])[a-z0-9]{3,10}$/;
