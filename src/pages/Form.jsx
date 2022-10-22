@@ -7,6 +7,7 @@ import FormCategory from "../components/FormCategory";
 import useInput from "../hooks/useInput";
 import Btn from "../elements/Btn";
 import { useDispatch } from "react-redux";
+import { postData } from "../redux/modules/post";
 
 const CommentsList = () => {
   const dispatch = useDispatch();
@@ -15,21 +16,28 @@ const CommentsList = () => {
   const [content, contentChange, contentReset] = useInput("");
   console.log(title, content);
 
-  const [image, setImage] = useState("");
+  const [img, setImg] = useState("");
 
   const imageUpload = () => {
     const imageURL = window.prompt("URL을 입력해주세요.");
-    setImage(imageURL);
+    setImg(imageURL);
   };
-  console.log("prompt:", image);
+  console.log("prompt:", img);
 
   const imageRemove = () => {
-    setImage("");
+    setImg("");
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch();
+    dispatch(
+      postData({
+        postId: Date.now(),
+        title,
+        content,
+        img,
+      })
+    );
     titleReset("");
     contentReset("");
   };
@@ -42,7 +50,7 @@ const CommentsList = () => {
           <StFormLeftDiv>
             <FormCategory />
             <StImageContainer>
-              <img src={image} alt="" />
+              <img src={img} alt="" />
               <StImageBtnBox>
                 <StImageBtn onClick={imageUpload}></StImageBtn>
                 <StImageBtn onClick={imageRemove}></StImageBtn>
@@ -64,7 +72,9 @@ const CommentsList = () => {
               value={content}
               onChange={contentChange}
             />
-            <Btn size="lg">MISSION COMPLETE</Btn>
+            <Btn onClick={submitHandler} size="lg">
+              MISSION COMPLETE
+            </Btn>
           </StFormRightDiv>
         </StFormInnerContainer>
       </StFormContainer>

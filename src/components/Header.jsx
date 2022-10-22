@@ -20,7 +20,7 @@ export default Header;
 const StHeaderContainer = styled.div`
   background: #ffffff;
   width: 100%;
-  height: 2.5em;
+  height: 2em;
   display: flex;
   align-items: center;
   padding: 1em 1.5em;
@@ -35,7 +35,7 @@ const StLogo = styled.img`
 `;
 
 const StTiltle = styled.p`
-  font-size: 1.8em;
-  padding-bottom: 0.2em;
+  font-size: 1.4em;
+  padding-top: 0.1em;
   color: var(--grid-color);
 `;

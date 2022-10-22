@@ -1,10 +1,10 @@
 @font-face {
-  font-family: 'SLEIGothicTTF';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.0/SLEIGothicTTF.woff') format('woff');
+  font-family: '양진체';
+  src: url('https://cdn.jsdelivr.net/gh/supernovice-lab/font@0.9/yangjin.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
-*, label {
-  font-family: 'SLEIGothicTTF';
+*, p, label {
+  font-family: '양진체';
 }

@@ -1,10 +1,11 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import "../App.scss";
 import Category from "../components/Category";
 import Header from "../components/Header";
 
 import "../css/variable.scss";
+import MasonryGrid from "../components/MasonryGrid";
 
 const Home = () => {
   return (
@@ -13,6 +14,9 @@ const Home = () => {
       <StContainer>
         <Category />
       </StContainer>
+      <GridWrap className="grid">
+        <MasonryGrid />
+      </GridWrap>
     </>
   );
 };
@@ -22,6 +26,13 @@ export default Home;
 const StContainer = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+const GridWrap = styled.div`
+  .grid {
+    background-color: var(--primary-color);
+    color: var(--primary-color);
+  }
 `;
 
 // const onChange = (e) => {
