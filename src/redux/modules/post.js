@@ -9,7 +9,7 @@ const initialState = {
       postId: 0,
       nickname: "buddle",
       title: "test",
-      comment: "test",
+      content: "test",
       img: "https://images.unsplash.com/photo-1627328715728-7bcc1b5db87d",
     },
   ],

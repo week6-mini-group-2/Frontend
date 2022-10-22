@@ -37,7 +37,7 @@ const MasonryGrid = () => {
       }}>
       <Box style={{ width: "90rem", minHeight: "60rem" }}>
         <Masonry columns={6} spacing={3} id="hoverAni">
-          {itemData.map((item) => (
+          {itemData.map((item, idx) => (
             <div
               key={item.postId}
               style={{ borderRadius: 6, boxShadow: "var(--grid-shadow)" }}>
