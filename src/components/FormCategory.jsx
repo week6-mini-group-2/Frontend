@@ -5,30 +5,30 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 import "../css/category.scss";
 
 // import required modules
-import { Pagination } from "swiper";
-import { useNavigate } from "react-router-dom";
+import { Pagination, Navigation } from "swiper";
 
-const Category = () => {
-  const nav = useNavigate();
-
+export default function FormCategory() {
   return (
     <>
       <Swiper
-        slidesPerView={4}
-        centeredSlides={false}
+        slidesPerView={3}
         spaceBetween={30}
-        grabCursor={true}
+        slidesPerGroup={3}
+        loop={true}
+        loopFillGroupWithBlank={true}
         pagination={{
           clickable: true,
         }}
-        modules={[Pagination]}
+        navigation={true}
+        modules={[Pagination, Navigation]}
         className="mySwiper"
       >
-        <SwiperSlide onClick={() => nav("/form")}>Slide 1</SwiperSlide>
+        <SwiperSlide>Slide 1</SwiperSlide>
         <SwiperSlide>Slide 2</SwiperSlide>
         <SwiperSlide>Slide 3</SwiperSlide>
         <SwiperSlide>Slide 4</SwiperSlide>
@@ -40,6 +40,4 @@ const Category = () => {
       </Swiper>
     </>
   );
-};
-
-export default Category;
+}
