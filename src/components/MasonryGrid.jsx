@@ -4,6 +4,9 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Masonry from "@mui/lab/Masonry";
 import { styled } from "@mui/material/styles";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import post, { getData } from "../redux/modules/post";
 
 const Label = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -15,7 +18,16 @@ const Label = styled(Paper)(({ theme }) => ({
   borderBottomRightRadius: 0,
 }));
 
-export default function MasonryGrid() {
+const MasonryGrid = () => {
+  const dispatch = useDispatch();
+  const { posts } = useSelector((state) => state.post);
+
+  console.log("post test :", posts);
+
+  useEffect(() => {
+    dispatch(getData());
+  }, [dispatch]);
+
   return (
     <div
       style={{
@@ -25,9 +37,9 @@ export default function MasonryGrid() {
       }}>
       <Box style={{ width: "90rem", minHeight: "60rem" }}>
         <Masonry columns={6} spacing={3} id="hoverAni">
-          {itemData.map((item, index) => (
+          {itemData.map((item) => (
             <div
-              key={index}
+              key={item.postId}
               style={{ borderRadius: 6, boxShadow: "var(--grid-shadow)" }}>
               <img
                 src={`${item.img}?w=162&auto=format`}
@@ -57,7 +69,7 @@ export default function MasonryGrid() {
                     fontWeight: "bold",
                     color: "var(--white-color)",
                   }}>
-                  title : {index}
+                  title : {item.title}
                 </div>
                 <div
                   style={{
@@ -65,7 +77,7 @@ export default function MasonryGrid() {
                     fontWeight: "100",
                     color: "var(--white-color)",
                   }}>
-                  author : {index + 1}
+                  nickname : {item.nickname}
                 </div>
               </Label>
             </div>
@@ -74,7 +86,9 @@ export default function MasonryGrid() {
       </Box>
     </div>
   );
-}
+};
+
+export default MasonryGrid;
 
 const itemData = [
   {
