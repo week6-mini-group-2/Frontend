@@ -1,11 +1,13 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, css } from "styled-components";
 
 const Variable = createGlobalStyle`
-  div {
-    background-color: #00cccc;
-    color: #0000ff;
-  }
   
 `;
 
 export default Variable;
+
+const Initial = styled.css`
+margin: 0 auto;
+padding: 0 auto;
+
+`
