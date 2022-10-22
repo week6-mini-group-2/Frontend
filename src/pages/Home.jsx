@@ -6,10 +6,17 @@ import MasonryGrid from "../components/MasonryGrid";
 
 const Home = () => {
   return (
-    <div>
+    <GridWrap className="grid">
       <MasonryGrid />
-    </div>
+    </GridWrap>
   );
 };
 
 export default Home;
+
+const GridWrap = styled.div`
+  .grid {
+    background-color: var(--primary-color);
+    color: var(--primary-color);
+  }
+`;
