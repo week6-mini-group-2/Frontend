@@ -11,7 +11,7 @@ import "../css/category.scss";
 // import required modules
 import { Pagination } from "swiper";
 
-const Category = ({ onclick }) => {
+const Category = () => {
   return (
     <>
       <Swiper

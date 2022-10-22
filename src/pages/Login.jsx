@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import "../css/variable.scss";
 import Btn from "../elements/Btn";
 
 const Login = () => {
+  const nav = useNavigate();
+  const dispatch = useDispatch();
+  const [isEdit, setIsEdit] = useState(false);
+
+  const changeIsEdit = (e) => {
+    e.preventDefault();
+    setIsEdit(!isEdit);
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch();
+    nav("/");
+  };
+
   return (
     <>
       <StLoginContainer>
@@ -22,15 +39,36 @@ const Login = () => {
             </a>
             <StTiltle>EarthGreen</StTiltle>
           </StHeaderContainer>
-          <StLoginInnerBox>
-            <StLoginInputWrap>
-              <StLoginLabel>NICKNAME</StLoginLabel>
-              <StLoginInput />
-              <StLoginLabel>PASSWORD</StLoginLabel>
-              <StLoginInput />
-            </StLoginInputWrap>
-            <Btn size="lg">LOGIN</Btn>
-          </StLoginInnerBox>
+          {isEdit === false ? (
+            <StLoginInnerBox>
+              <StLoginInputWrap>
+                <StLoginLabel>NICKNAME</StLoginLabel>
+                <StLoginInput />
+                <StLoginLabel>PASSWORD</StLoginLabel>
+                <StLoginInput />
+              </StLoginInputWrap>
+              <StBtnWrap>
+                <Btn size="lg">LOGIN</Btn>
+                <Btn onClick={changeIsEdit} size="lg">
+                  SIGNUP
+                </Btn>
+              </StBtnWrap>
+            </StLoginInnerBox>
+          ) : (
+            <StLoginInnerBox>
+              <StLoginInputWrap>
+                <StLoginLabel>NICKNAME</StLoginLabel>
+                <StLoginInput />
+                <StLoginLabel>PASSWORD</StLoginLabel>
+                <StLoginInput />
+                <StLoginLabel>CONFIRM PASSWORD</StLoginLabel>
+                <StLoginInput />
+              </StLoginInputWrap>
+              <Btn size="lg" onClick={submitHandler}>
+                SUBMIT
+              </Btn>
+            </StLoginInnerBox>
+          )}
         </StLoginBox>
       </StLoginContainer>
     </>
@@ -133,4 +171,10 @@ const StLoginInput = styled.input`
   border: none;
   border-radius: var(--radius-small);
   box-shadow: 0em 0em 0.5em lightgray;
+`;
+
+const StBtnWrap = styled.div`
+  display: flex;
+  flex-flow: column;
+  row-gap: 1rem;
 `;

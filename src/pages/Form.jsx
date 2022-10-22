@@ -52,8 +52,8 @@ const CommentsList = () => {
             <StImageContainer>
               <img src={img} alt="" />
               <StImageBtnBox>
-                <StImageBtn onClick={imageUpload}></StImageBtn>
-                <StImageBtn onClick={imageRemove}></StImageBtn>
+                <StImageUploadBtn onClick={imageUpload}></StImageUploadBtn>
+                <StImageRemoveBtn onClick={imageRemove}></StImageRemoveBtn>
               </StImageBtnBox>
             </StImageContainer>
           </StFormLeftDiv>
@@ -118,21 +118,49 @@ const StImageContainer = styled.div`
   box-shadow: 0em 0em 0.5em lightgray;
   display: flex;
   flex-flow: column;
+  position: relative;
 `;
 
 const StImageBtnBox = styled.div`
   display: flex;
   justify-content: space-between;
-  column-gap: 1em;
+  column-gap: 0.2em;
+  position: absolute;
+  top: 85%;
+  left: 4%;
 `;
 
-const StImageBtn = styled.button`
+const StImageUploadBtn = styled.button`
   background: white;
-  width: 12em;
+  width: 11em;
   height: 2em;
   margin: 0em 0.5em;
   border-radius: var(--radius-base);
   box-shadow: 0em 0em 0.5em lightgray;
+  border: none;
+  cursor: pointer;
+  &:active {
+    box-shadow: inset 0rem -0.2rem 0.5rem white;
+  }
+  &:hover {
+    background: var(--grid-color);
+  }
+`;
+
+const StImageRemoveBtn = styled.button`
+  background: white;
+  width: 11em;
+  height: 2em;
+  margin: 0em 0.5em;
+  border-radius: var(--radius-base);
+  box-shadow: 0em 0em 0.5em lightgray;
+  border: none;
+  &:active {
+    box-shadow: inset 0rem -0.2rem 0.5rem white;
+  }
+  &:hover {
+    background: var(--grid-color);
+  }
   cursor: pointer;
 `;
 
@@ -146,7 +174,7 @@ const StFormRightDiv = styled.div`
 
 const StFormTitleLabel = styled.label`
   margin-top: 1em;
-  font-size: 1.2em;
+  font-size: 1em;
 `;
 
 const StFormTitle = styled.input`
@@ -160,7 +188,7 @@ const StFormTitle = styled.input`
 
 const StFormContentLabel = styled.label`
   margin-bottom: 1em;
-  font-size: 1.2em;
+  font-size: 1em;
 `;
 
 const StFormContent = styled.textarea`

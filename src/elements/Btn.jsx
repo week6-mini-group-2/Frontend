@@ -2,12 +2,6 @@ import React, { memo } from "react";
 import styled, { css } from "styled-components";
 
 const SIZES = {
-  sm: css`
-    --button-font-size: 0.5rem;
-    --button-padding: 8px 12px;
-    --button-readius: 4px;
-    --button-width: 16em;
-  `,
   lg: css`
     --button-font-size: 0.875rem;
     --button-padding: 6px 0px;

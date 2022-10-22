@@ -1,7 +1,8 @@
 .swiper {
   margin: 1em;
   width: 90%;
-  height: 12vh;
+  height: 14vh;
+  box-shadow: 0em 0em 0.5em gray;
 }
 
 .swiper-slide {
@@ -24,6 +25,7 @@
   align-items: flex-start;
   padding-top: 1em;
   font-size: 0.5em;
+  border-radius: var(--radius-small);
   cursor: pointer;
 }
 
