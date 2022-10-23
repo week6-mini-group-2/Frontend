@@ -7,14 +7,51 @@ const initialState = {
   isLoading: false,
 };
 
-/* 게시글 id 값을 부여 후 todo 추가 get -> post  */
+/* 로그인 정보 불러오기 */
 
-export const loginDB = createAsyncThunk(
-  "user/serveLogin",
+export const getUser = createAsyncThunk("user/getUser", async (_, thunkAPI) => {
+  try {
+    const res = await axios.get("http://localhost:3002/users");
+    console.log(res);
+    /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
+    return thunkAPI.fulfillWithValue(res.data);
+  } catch (err) {
+    console.log(err);
+    return thunkAPI.rejectWithValue(err);
+  }
+});
+
+/* 로그인 */
+
+export const userLogin = createAsyncThunk(
+  "user/userLogin",
   async (payload, thunkAPI) => {
     console.log("payload:", payload);
+    const res = await axios
+      .post("http://localhost:3002/users", payload)
+      .then((res) => {
+        /* 통신 상태가 잘 이루어짐 (200) */
+        if (res.data.status === 200) {
+          /* 토큰 값 (pw) 넘겨주기 */
+
+          /* 닉네임 넘겨주기 */
+
+          return res;
+        } else {
+          return res;
+        }
+      });
+    return thunkAPI.fulfillWithValue(res.data);
+  }
+);
+
+/* 회원탈퇴 */
+
+export const deleteUser = createAsyncThunk(
+  "user/deleteUser",
+  async (_, thunkAPI) => {
     try {
-      const res = await axios.post("http://localhost:3002/users", payload);
+      const res = await axios.delete("http://localhost:3002/users");
       console.log(res);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);
@@ -25,17 +62,39 @@ export const loginDB = createAsyncThunk(
   }
 );
 
-/* 해당 id의 todo 를 update 인자에 저장 후 반환 */
+/* 회원정보 수정 */
 
-export const signupDB = createAsyncThunk(
-  "posts/updateData",
+export const updateUser = createAsyncThunk(
+  "user/updateUser",
+  async (_, thunkAPI) => {
+    try {
+      const res = await axios.patch("http://localhost:3002/users");
+      console.log(res);
+      /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
+      return thunkAPI.fulfillWithValue(res.data);
+    } catch (err) {
+      console.log(err);
+      return thunkAPI.rejectWithValue(err);
+    }
+  }
+);
+
+/* 회원가입 */
+
+export const userSignup = createAsyncThunk(
+  "user/userSignup",
   async (payload, thunkAPI) => {
     console.log("여기payload:", payload);
     try {
-      const res = await axios.patch(
-        `http://localhost:3002/posts/${payload.id}`,
+      const res = await axios.post(
+        `http://localhost:3002/users/${payload.id}`,
         payload
       );
+      if (res.data.status !== 200) {
+        return window.alert("회원가입에 실패 하였습니다.");
+      } else {
+        return window.alert("회원이 되신 것을 환영합니다.");
+      }
       console.log(res);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);
@@ -64,31 +123,31 @@ const postStore = createSlice({
 
   extraReducers: (builder) => {
     /* ----------- getData(전체 게시글 조회) ---------------- */
-    builder.addCase(loginDB.pending, (state) => {
+    builder.addCase(userLogin.pending, (state) => {
       state.isLoading = true;
       console.log("pending", state.isLoading);
     });
-    builder.addCase(loginDB.fulfilled, (state, action) => {
+    builder.addCase(userLogin.fulfilled, (state, action) => {
       state.posts = action.payload;
       state.isLoading = false;
       console.log("fulfilled :", state);
     });
-    builder.addCase(loginDB.rejected, (state) => {
+    builder.addCase(userLogin.rejected, (state) => {
       state.isLoading = false;
       console.log("error");
     });
 
     /* ----------- postData(Todo 추가) ---------------- */
-    builder.addCase(signupDB.pending, (state) => {
+    builder.addCase(userSignup.pending, (state) => {
       state.isLoading = true;
       console.log("pending", state.isLoading);
     });
-    builder.addCase(signupDB.fulfilled, (state, action) => {
+    builder.addCase(userSignup.fulfilled, (state, action) => {
       state.posts.push(action.payload);
       state.isLoading = false;
       console.log("fulfilled : ", state);
     });
-    builder.addCase(signupDB.rejected, (state) => {
+    builder.addCase(userSignup.rejected, (state) => {
       state.isLoading = false;
       console.log("error");
     });
@@ -98,26 +157,3 @@ const postStore = createSlice({
 //export
 
 export default postStore.reducer;
-
-/*
-정규식
-const onChange = (e) => {
-  const REGID = /^(?=.*[a-z0-9])[a-z0-9]{3,10}$/;
-  const REGPW =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,12}/;
-  const { name, value } = e.target;
-  setForm((form) => ({ ...form, [name]: value }));
-  if (form.id === "" || !REGID.test(id)) {
-    setAlertBox("아이디는 영문 또는 숫자 4-10자입니다");
-  } else if (password === "" || !REGPW.test(password)) {
-    setAlertBox("비밀번호는 대소문자,숫자,특수기호 포함 6-12자 입니다");
-  } else if (confirmPassword === "" || confirmPassword !== password) {
-    setAlertBox("비밀번호가 일치하지 않습니다");
-  } else if (userName === "" || userName.length > 7) {
-    setAlertBox("이름을 확인해주세요");
-  } else {
-    setAlertBox("");
-    //버튼 활성화 토글
-    setJoinToggle(false);
-  }
-}; */
