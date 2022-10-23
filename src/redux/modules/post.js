@@ -5,38 +5,35 @@ import axios from "axios";
 const initialState = {
   posts: [
     {
-      category: 0,
+      // category: 0,
       postId: 0,
-      nickname: "buddle",
-      title: "test",
-      content: "test",
-      img: "https://images.unsplash.com/photo-1627328715728-7bcc1b5db87d",
+      // nickname: "buddle",
+      title: "",
+      content: "",
+      img: "",
     },
   ],
   isLoading: false,
 };
-
-export const getData = createAsyncThunk(
-  "post/getData",
-  async (payload, thunkAPI) => {
-    try {
-      const res = await axios.get("http://localhost:3002/posts");
-      //const todoData = res.data;
-      console.log(res);
-      /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
-      return thunkAPI.fulfillWithValue(res.data);
-    } catch (err) {
-      console.log(err);
-      return thunkAPI.rejectWithValue(err);
-    }
+export const getData = createAsyncThunk("post/getData", async (_, thunkAPI) => {
+  try {
+    const res = await axios.get("http://localhost:3002/posts");
+    //const todoData = res.data;
+    console.log(res);
+    /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
+    return thunkAPI.fulfillWithValue(res.data);
+  } catch (err) {
+    console.log(err);
+    return thunkAPI.rejectWithValue(err);
   }
-);
+});
 
 /* 게시글 id 값을 부여 후 todo 추가 get -> post  */
 
 export const postData = createAsyncThunk(
   "post/postData",
   async (payload, thunkAPI) => {
+    console.log("payload:", payload);
     try {
       const res = await axios.post("http://localhost:3002/posts", payload);
       console.log("post res:", res);
@@ -173,24 +170,3 @@ const postStore = createSlice({
 //export
 
 export default postStore.reducer;
-
-/* const onChange = (e) => {
-  const REGID = /^(?=.*[a-z0-9])[a-z0-9]{3,10}$/;
-  const REGPW =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,12}/;
-  const { name, value } = e.target;
-  setForm((form) => ({ ...form, [name]: value }));
-  if (form.id === "" || !REGID.test(id)) {
-    setAlertBox("아이디는 영문 또는 숫자 4-10자입니다");
-  } else if (password === "" || !REGPW.test(password)) {
-    setAlertBox("비밀번호는 대소문자,숫자,특수기호 포함 6-12자 입니다");
-  } else if (confirmPassword === "" || confirmPassword !== password) {
-    setAlertBox("비밀번호가 일치하지 않습니다");
-  } else if (userName === "" || userName.length > 7) {
-    setAlertBox("이름을 확인해주세요");
-  } else {
-    setAlertBox("");
-    //버튼 활성화 토글
-    setJoinToggle(false);
-  }
-}; */

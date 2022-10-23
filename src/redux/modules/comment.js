@@ -60,8 +60,7 @@ export const editComments = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.patch(
-        process.env.REACT_APP_HOST_URL +
-          `http://localhost:3002/comments/comments/${payload.id}`,
+        `http://localhost:3002/comments/comments/${payload.id}`,
         payload
       );
       return thunkAPI.fulfillWithValue(data.data);
