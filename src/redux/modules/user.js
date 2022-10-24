@@ -3,22 +3,15 @@ import axios from "axios";
 
 /* InitialState */
 const initialState = {
-  posts: [
-    {
-      // category: 0,
-      postId: 0,
-      // nickname: "buddle",
-      title: "",
-      content: "",
-      img: "",
-    },
-  ],
+  users: [{}],
   isLoading: false,
 };
-export const getData = createAsyncThunk("post/getData", async (_, thunkAPI) => {
+
+/* 로그인 정보 불러오기 */
+
+export const getUser = createAsyncThunk("user/getUser", async (_, thunkAPI) => {
   try {
-    const res = await axios.get("http://localhost:3002/posts");
-    //const todoData = res.data;
+    const res = await axios.get("http://localhost:3002/users");
     console.log(res);
     /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
     return thunkAPI.fulfillWithValue(res.data);
@@ -28,35 +21,37 @@ export const getData = createAsyncThunk("post/getData", async (_, thunkAPI) => {
   }
 });
 
-/* 게시글 id 값을 부여 후 todo 추가 get -> post  */
+/* 로그인 */
 
-export const postData = createAsyncThunk(
-  "post/postData",
+export const userLogin = createAsyncThunk(
+  "user/userLogin",
   async (payload, thunkAPI) => {
     console.log("payload:", payload);
-    try {
-      const res = await axios.post("http://localhost:3002/posts", payload);
-      console.log("post res:", res);
-      /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
-      return thunkAPI.fulfillWithValue(res.data);
-    } catch (err) {
-      console.log(err);
-      return thunkAPI.rejectWithValue(err);
-    }
+    const res = await axios
+      .post("http://localhost:3002/users", payload)
+      .then((res) => {
+        /* 통신 상태가 잘 이루어짐 (200) */
+        if (res.data.status === 200) {
+          /* 토큰 값 (pw) 넘겨주기 */
+
+          /* 닉네임 넘겨주기 */
+
+          return res;
+        } else {
+          return res;
+        }
+      });
+    return thunkAPI.fulfillWithValue(res.data);
   }
 );
 
-/* 해당 id의 todo 를 update 인자에 저장 후 반환 */
+/* 회원탈퇴 */
 
-export const updateData = createAsyncThunk(
-  "posts/updateData",
-  async (payload, thunkAPI) => {
-    console.log("여기payload:", payload);
+export const deleteUser = createAsyncThunk(
+  "user/deleteUser",
+  async (_, thunkAPI) => {
     try {
-      const res = await axios.patch(
-        `http://localhost:3002/posts/${payload.id}`,
-        payload
-      );
+      const res = await axios.delete("http://localhost:3002/users");
       console.log(res);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);
@@ -67,16 +62,42 @@ export const updateData = createAsyncThunk(
   }
 );
 
-/* 해당 id에 todo를 삭제 */
+/* 회원정보 수정 */
 
-export const deleteData = createAsyncThunk(
-  "posts/deleteData",
-  async (postId, thunkAPI) => {
+export const updateUser = createAsyncThunk(
+  "user/updateUser",
+  async (_, thunkAPI) => {
     try {
-      await axios.delete(`http://localhost:3002/posts/${postId}`);
-      //const todoData = res.data;
+      const res = await axios.patch("http://localhost:3002/users");
+      console.log(res);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
-      return thunkAPI.fulfillWithValue(postId);
+      return thunkAPI.fulfillWithValue(res.data);
+    } catch (err) {
+      console.log(err);
+      return thunkAPI.rejectWithValue(err);
+    }
+  }
+);
+
+/* 회원가입 */
+
+export const userSignup = createAsyncThunk(
+  "user/userSignup",
+  async (payload, thunkAPI) => {
+    console.log("여기payload:", payload);
+    try {
+      const res = await axios.post(
+        `http://localhost:3002/users/${payload.id}`,
+        payload
+      );
+      if (res.data.status !== 200) {
+        return window.alert("회원가입에 실패 하였습니다.");
+      } else {
+        return window.alert("회원이 되신 것을 환영합니다.");
+      }
+      console.log(res);
+      /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
+      return thunkAPI.fulfillWithValue(res.data);
     } catch (err) {
       console.log(err);
       return thunkAPI.rejectWithValue(err);
@@ -102,65 +123,31 @@ const postStore = createSlice({
 
   extraReducers: (builder) => {
     /* ----------- getData(전체 게시글 조회) ---------------- */
-    builder.addCase(getData.pending, (state) => {
+    builder.addCase(userLogin.pending, (state) => {
       state.isLoading = true;
       console.log("pending", state.isLoading);
     });
-    builder.addCase(getData.fulfilled, (state, action) => {
+    builder.addCase(userLogin.fulfilled, (state, action) => {
       state.posts = action.payload;
       state.isLoading = false;
       console.log("fulfilled :", state);
     });
-    builder.addCase(getData.rejected, (state) => {
+    builder.addCase(userLogin.rejected, (state) => {
       state.isLoading = false;
       console.log("error");
     });
 
     /* ----------- postData(Todo 추가) ---------------- */
-    builder.addCase(postData.pending, (state) => {
+    builder.addCase(userSignup.pending, (state) => {
       state.isLoading = true;
       console.log("pending", state.isLoading);
     });
-    builder.addCase(postData.fulfilled, (state, action) => {
+    builder.addCase(userSignup.fulfilled, (state, action) => {
       state.posts.push(action.payload);
       state.isLoading = false;
       console.log("fulfilled : ", state);
     });
-    builder.addCase(postData.rejected, (state) => {
-      state.isLoading = false;
-      console.log("error");
-    });
-
-    /* ----------- updateData(Todo 수정) ---------------- */
-    builder.addCase(updateData.pending, (state) => {
-      state.isLoading = true;
-      console.log("pending");
-    });
-    builder.addCase(updateData.fulfilled, (state, action) => {
-      state.isLoading = false;
-      const idx = state.posts.findIndex(
-        (todo) => todo.id === action.payload.id
-      );
-      state.posts[idx] = action.payload;
-      console.log("fulfilled : ", state);
-    });
-    builder.addCase(updateData.rejected, (state) => {
-      state.isLoading = false;
-      console.log("error");
-    });
-
-    /* ----------- deleteData(Todo 삭제) ---------------- */
-    builder.addCase(deleteData.pending, (state) => {
-      state.isLoading = true;
-      console.log("pending");
-    });
-    builder.addCase(deleteData.fulfilled, (state, action) => {
-      state.isLoading = false;
-      const idx = state.posts.findIndex((todo) => todo.id === action.payload);
-      state.posts.splice([idx], 1);
-      console.log("fulfilled :", state);
-    });
-    builder.addCase(deleteData.rejected, (state) => {
+    builder.addCase(userSignup.rejected, (state) => {
       state.isLoading = false;
       console.log("error");
     });

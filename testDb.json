@@ -1,22 +1,87 @@
 {
   "posts": [
     {
-      "postId": 1666426550859,
-      "title": "11",
-      "content": "111",
-      "img": "https://src.hidoc.co.kr/image/lib/2022/4/21/1650520586082_0.jpg",
-      "id": 1
-=======
+      "category": 1,
+      "postId": 1,
+      "nickname": "typicode",
+      "title": "test222222222241232",
+      "comment": "first",
+      "img": "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f"
+    },
+    {
+      "category": 3,
+      "postId": 11,
+      "nickname": "typicode",
+      "title": "dddddddddddgafdaserver",
+      "comment": "2",
+      "img": "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f"
+    },
+    {
+      "category": 1,
+      "postId": 21,
+      "nickname": "typicode",
+      "title": "jfdaffffffasdfver",
+      "comment": "3",
+      "img": "https://images.unsplash.com/photo-1597645587822-e99fa5d45d25"
+    },
+    {
+      "category": 4,
+      "postId": 31,
+      "nickname": "typicode",
+      "title": "jssdfffffffffffffffrver",
+      "comment": "4",
+      "img": "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1"
+    },
+    {
+      "category": 1,
+      "postId": 41,
+      "nickname": "typicode",
+      "title": "test222222222241232",
+      "comment": "first",
+      "img": "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1"
+    },
+    {
+      "category": 3,
+      "postId": 13231,
+      "nickname": "typicode",
+      "title": "dddddddddddgafdaserver",
+      "comment": "2",
+      "img": "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62"
+    },
+    {
+      "category": 1,
+      "postId": 245451,
+      "nickname": "typicode",
+      "title": "jfdaffffffasdfver",
+      "comment": "3",
+      "img": "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6"
+    },
+    {
+      "category": 4,
+      "postId": 364361,
+      "nickname": "typicode",
+      "title": "jssdfffffffffffffffrver",
+      "comment": "4",
+      "img": "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1"
+    },
+    {
+      "category": 1,
+      "postId": 13621,
+      "nickname": "typicode",
+      "title": "test222222222241232",
+      "comment": "first",
+      "img": "https://images.unsplash.com/photo-1533827432537-70133748f5c8"
     }
   ],
   "comments": [
     {
       "Id": 1,
-      "body": "some comment",
+      "body": "some content",
       "postId": 1
     }
   ],
-  "profile": {
-    "name": "typicode"
+  "users": {
+    "nickname": "typicode",
+    "password": 12344
   }
 }
