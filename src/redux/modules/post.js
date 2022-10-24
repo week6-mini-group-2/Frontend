@@ -5,12 +5,11 @@ import axios from "axios";
 const initialState = {
   posts: [
     {
-      // category: 0,
-      postId: 0,
-      // nickname: "buddle",
+      category: 0,
       title: "",
       content: "",
       img: "",
+      id: 0,
     },
   ],
   isLoading: false,
@@ -31,7 +30,7 @@ export const getData = createAsyncThunk("post/getData", async (_, thunkAPI) => {
 /* 게시글 id 값을 부여 후 todo 추가 get -> post  */
 
 export const postData = createAsyncThunk(
-  "post/postData",
+  "posts/postData",
   async (payload, thunkAPI) => {
     console.log("payload:", payload);
     try {
@@ -48,7 +47,7 @@ export const postData = createAsyncThunk(
 
 /* 해당 id의 todo 를 update 인자에 저장 후 반환 */
 
-export const updateData = createAsyncThunk(
+export const editData = createAsyncThunk(
   "posts/updateData",
   async (payload, thunkAPI) => {
     console.log("여기payload:", payload);
@@ -69,7 +68,7 @@ export const updateData = createAsyncThunk(
 
 /* 해당 id에 todo를 삭제 */
 
-export const deleteData = createAsyncThunk(
+export const removeData = createAsyncThunk(
   "posts/deleteData",
   async (postId, thunkAPI) => {
     try {
@@ -132,11 +131,11 @@ const postStore = createSlice({
     });
 
     /* ----------- updateData(Todo 수정) ---------------- */
-    builder.addCase(updateData.pending, (state) => {
+    builder.addCase(editData.pending, (state) => {
       state.isLoading = true;
       console.log("pending");
     });
-    builder.addCase(updateData.fulfilled, (state, action) => {
+    builder.addCase(editData.fulfilled, (state, action) => {
       state.isLoading = false;
       const idx = state.posts.findIndex(
         (todo) => todo.id === action.payload.id
@@ -144,23 +143,23 @@ const postStore = createSlice({
       state.posts[idx] = action.payload;
       console.log("fulfilled : ", state);
     });
-    builder.addCase(updateData.rejected, (state) => {
+    builder.addCase(editData.rejected, (state) => {
       state.isLoading = false;
       console.log("error");
     });
 
     /* ----------- deleteData(Todo 삭제) ---------------- */
-    builder.addCase(deleteData.pending, (state) => {
+    builder.addCase(removeData.pending, (state) => {
       state.isLoading = true;
       console.log("pending");
     });
-    builder.addCase(deleteData.fulfilled, (state, action) => {
+    builder.addCase(removeData.fulfilled, (state, action) => {
       state.isLoading = false;
       const idx = state.posts.findIndex((todo) => todo.id === action.payload);
       state.posts.splice([idx], 1);
       console.log("fulfilled :", state);
     });
-    builder.addCase(deleteData.rejected, (state) => {
+    builder.addCase(removeData.rejected, (state) => {
       state.isLoading = false;
       console.log("error");
     });

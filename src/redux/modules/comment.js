@@ -40,7 +40,7 @@ export const addComments = createAsyncThunk(
   }
 );
 
-export const deleteComments = createAsyncThunk(
+export const removeComments = createAsyncThunk(
   "comments/deleteComments",
   async (payload, thunkAPI) => {
     console.log("id, postId:", payload);
@@ -100,10 +100,10 @@ export const commentSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     });
-    builder.addCase(deleteComments.pending, (state) => {
+    builder.addCase(removeComments.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(deleteComments.fulfilled, (state, action) => {
+    builder.addCase(removeComments.fulfilled, (state, action) => {
       console.log("delete부분:", state, action);
       state.isLoading = false;
       const idx = state.comments.findIndex(
@@ -111,7 +111,7 @@ export const commentSlice = createSlice({
       );
       state.comments.splice(idx, 1);
     });
-    builder.addCase(deleteComments.rejected, (state, action) => {
+    builder.addCase(removeComments.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     });

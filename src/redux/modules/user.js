@@ -95,9 +95,6 @@ export const userSignup = createAsyncThunk(
       } else {
         return window.alert("회원이 되신 것을 환영합니다.");
       }
-      console.log(res);
-      /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
-      return thunkAPI.fulfillWithValue(res.data);
     } catch (err) {
       console.log(err);
       return thunkAPI.rejectWithValue(err);
@@ -111,7 +108,7 @@ post : 게시글 작성  get : 게시글 전체 조회, 게시글 조회 put : �
 toolkit의 기능으로 객체 불변성 신경 x , payload라는 매개변수는 고정 값*/
 
 const postStore = createSlice({
-  name: "posts", // module`s name
+  name: "users", // module`s name
   initialState, // this module`s initialState
 
   /* reducer logic */
