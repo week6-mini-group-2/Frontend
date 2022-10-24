@@ -4,16 +4,11 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import "../css/variable.scss";
 import Btn from "../elements/Btn";
-import useInput from "../hooks/useInput";
-import { postSignup } from "../redux/modules/signup";
 
 const Login = () => {
   const nav = useNavigate();
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false);
-  const [nickname, nicknameHandler] = useInput("");
-  const [password, passwordHandler] = useInput("");
-  const [confirmPassword, confirmPasswordHandler] = useInput("");
 
   const changeIsEdit = (e) => {
     e.preventDefault();
@@ -22,15 +17,8 @@ const Login = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      postSignup({
-        userId: Date.now(),
-        nickname,
-        password,
-        confirmPassword,
-      })
-    );
-    nav("/login");
+    dispatch();
+    nav("/");
   };
 
   return (
@@ -55,19 +43,9 @@ const Login = () => {
             <StLoginInnerBox>
               <StLoginInputWrap>
                 <StLoginLabel>NICKNAME</StLoginLabel>
-                <StLoginInput
-                  type="text"
-                  name="nickname"
-                  value={nickname}
-                  onChange={nicknameHandler}
-                />
+                <StLoginInput />
                 <StLoginLabel>PASSWORD</StLoginLabel>
-                <StLoginInput
-                  type="text"
-                  name="password"
-                  value={password}
-                  onChange={passwordHandler}
-                />
+                <StLoginInput />
               </StLoginInputWrap>
               <StBtnWrap>
                 <Btn size="lg">LOGIN</Btn>
@@ -80,26 +58,11 @@ const Login = () => {
             <StLoginInnerBox>
               <StLoginInputWrap>
                 <StLoginLabel>NICKNAME</StLoginLabel>
-                <StLoginInput
-                  type="text"
-                  name="nickname"
-                  value={nickname}
-                  onChange={nicknameHandler}
-                />
+                <StLoginInput />
                 <StLoginLabel>PASSWORD</StLoginLabel>
-                <StLoginInput
-                  type="text"
-                  name="password"
-                  value={password}
-                  onChange={passwordHandler}
-                />
+                <StLoginInput />
                 <StLoginLabel>CONFIRM PASSWORD</StLoginLabel>
-                <StLoginInput
-                  type="text"
-                  name="confirmPassword"
-                  value={confirmPassword}
-                  onChange={confirmPasswordHandler}
-                />
+                <StLoginInput />
               </StLoginInputWrap>
               <Btn size="lg" onClick={submitHandler}>
                 SUBMIT

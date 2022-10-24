@@ -1,0 +1,10 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "양진체";
+  src: url("https://cdn.jsdelivr.net/gh/supernovice-lab/font@0.9/yangjin.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+*, p, label {
+  font-family: "양진체";
+}/*# sourceMappingURL=App.css.map */
