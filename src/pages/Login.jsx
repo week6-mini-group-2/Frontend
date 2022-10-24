@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import "../css/variable.scss";
 import Btn from "../elements/Btn";
-import { userLogin } from "../redux/modules/user";
+import { userLogin, userSignup } from "../redux/modules/user";
 
 const Login = () => {
   const nav = useNavigate();
