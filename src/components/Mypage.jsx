@@ -1,6 +1,7 @@
 import * as React from "react";
+import styled from "styled-components";
 import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
@@ -11,7 +12,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 
-export default function TemporaryDrawer() {
+export default function SwipeableTemporaryDrawer() {
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -21,6 +22,7 @@ export default function TemporaryDrawer() {
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
+      event &&
       event.type === "keydown" &&
       (event.key === "Tab" || event.key === "Shift")
     ) {
@@ -69,14 +71,23 @@ export default function TemporaryDrawer() {
       {["left", "right", "top", "bottom"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-          <Drawer
+          <SwipeableDrawer
             anchor={anchor}
             open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}>
+            onClose={toggleDrawer(anchor, false)}
+            onOpen={toggleDrawer(anchor, true)}>
             {list(anchor)}
-          </Drawer>
+          </SwipeableDrawer>
         </React.Fragment>
       ))}
     </div>
   );
 }
+
+const ToggleBtn = styled.button`
+  width: 3rem;
+  height: 2rem;
+  border: 1px solid #929292;
+  background-color: #616161;
+  border-radius: 0px 0px 4px 4px;
+`;
