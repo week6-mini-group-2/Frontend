@@ -1,0 +1,27 @@
+.swiper {
+  background: black;
+  margin: 1em;
+  width: 80%;
+  height: 50%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 30px;
+  background: #fff;
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12em;
+  border-radius: var(--radius-small);
+  cursor: pointer;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}/*# sourceMappingURL=category.css.map */
