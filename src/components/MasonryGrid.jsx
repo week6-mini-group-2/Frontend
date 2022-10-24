@@ -37,13 +37,11 @@ const MasonryGrid = () => {
                   loading="lazy"
                   style={{
                     borderRadius: 7,
-                    position: "relative",
+
                     width: "100%",
                   }}
                 />
-                <div className="masonryLabel">
-                  <div className="masonryTitle">{item.title}</div>
-                </div>
+                <div className="masonryLabel">{item.title}</div>
               </div>
             </div>
           ))}
