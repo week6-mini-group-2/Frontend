@@ -1,88 +1,14 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import "../css/variable.scss";
 import Btn from "../elements/Btn";
-import { userLogin, userSignup } from "../redux/modules/user";
 
 const Login = () => {
   const nav = useNavigate();
   const dispatch = useDispatch();
-
-  /* login form  <-->  signup form (boolean) */
   const [isEdit, setIsEdit] = useState(false);
-
-  /* state about login and register */
-
-  const [nickname, setNickname] = useState("");
-  const [password, setPassword] = useState("");
-
-  /* validate */
-
-  const nameReg = /^[a-zA-Z0-9]{3,10}$/;
-  const pwReg = /^[a-zA-Z0-9]{4,30}$/;
-
-  const cleanName = useCallback(() => {
-    setNickname("");
-  }, [nickname]);
-
-  const cleanPw = useCallback(() => {
-    setPassword("");
-  }, [password]);
-
-  const loginHandler = useCallback(
-    async (e) => {
-      e.preventDefault();
-      if (nickname === "") {
-        alert("닉네임을 입력해주세요");
-        console.log(nickname);
-      } else if (nameReg.test(nickname) === false) {
-        alert("닉네임 형식에 맞춰 올바르게 작성해 주세요");
-      } else if (password === "") {
-        alert("비밀번호를 입력해주세요");
-      } else if (pwReg.test(password) === false) {
-        alert("비밀번호 형식에 맞춰 올바르게 작성해 주세요");
-
-        /* backend 에서 유효성 검사를 한번 더 해주는 걸 고려해서
-      dispatch 를 짜봐야됨.. 
-      */
-      } /* else if (dispatch(userLogin({ nickname, password }))
-      .then((res) => {
-        if (res.payloadd.status === 200) {
-          console.log("~~ 님 안녕하세요~");
-          nav(-1);
-        } else {
-          alert("disconnected");
-        }
-      });
-    ) */
-    },
-    [nickname, password]
-  );
-  /*
-정규식
-const onChange = (e) => {
-  const REGID = /^(?=.*[a-z0-9])[a-z0-9]{3,10}$/;
-  const REGPW =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,12}/;
-  const { name, value } = e.target;
-  setForm((form) => ({ ...form, [name]: value }));
-  if (form.id === "" || !REGID.test(id)) {
-  
-    setAlertBox("아이디는 영문 또는 숫자 4-10자입니다");
-  } else if (password === "" || !REGPW.test(password)) {
-    setAlertBox("비밀번호는 대소문자,숫자,특수기호 포함 6-12자 입니다");
-  } else if (confirmPassword === "" || confirmPassword !== password) {
-    setAlertBox("비밀번호가 일치하지 않습니다");
-  } else if (userName === "" || userName.length > 7) {
-    setAlertBox("이름을 확인해주세요");
-  } else {
-    setAlertBox("");
-    //버튼 활성화 토글
-    setJoinToggle(false);
-  }
-}; */
 
   const changeIsEdit = (e) => {
     e.preventDefault();
@@ -114,7 +40,6 @@ const onChange = (e) => {
             <StTiltle>EarthGreen</StTiltle>
           </StHeaderContainer>
           {isEdit === false ? (
-            /* 아래 박스를 form으로 지정하여 onSubmit으로 event 값을 다뤄야 되지 않을까.. */
             <StLoginInnerBox>
               <StLoginInputWrap>
                 <StLoginLabel>NICKNAME</StLoginLabel>
@@ -218,7 +143,7 @@ const StTiltle = styled.p`
   color: var(--grid-color);
 `;
 
-const StLoginInnerBox = styled.form`
+const StLoginInnerBox = styled.div`
   height: 100vh;
   display: flex;
   flex-flow: column;
