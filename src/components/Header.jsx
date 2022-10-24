@@ -20,12 +20,14 @@ export default Header;
 const StHeaderContainer = styled.div`
   background: #ffffff;
   width: 100%;
-  height: 2em;
+  height: 5vh;
   display: flex;
   align-items: center;
   padding: 1em 1.5em;
   box-shadow: 0em 0em 1em lightgray;
-  position: sticky;
+  /* position: fixed;
+  top: 0;
+  left: 0; */
 `;
 
 const StLogo = styled.img`

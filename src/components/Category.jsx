@@ -11,6 +11,9 @@ import "../css/category.scss";
 // import required modules
 import { Pagination } from "swiper";
 
+import styled from "styled-components";
+import "../css/variable.scss";
+
 const Category = () => {
   return (
     <>
@@ -25,17 +28,31 @@ const Category = () => {
         modules={[Pagination]}
         className="mySwiper"
       >
-        <SwiperSlide onClick={onclick}>Slide 1</SwiperSlide>
-        <SwiperSlide onClick={onclick}>Slide 2</SwiperSlide>
-        <SwiperSlide onClick={onclick}>Slide 3</SwiperSlide>
-        <SwiperSlide onClick={onclick}>Slide 4</SwiperSlide>
-        <SwiperSlide onClick={onclick}>Slide 5</SwiperSlide>
-        <SwiperSlide onClick={onclick}>Slide 6</SwiperSlide>
-        <SwiperSlide onClick={onclick}>Slide 7</SwiperSlide>
-        <SwiperSlide onClick={onclick}>Slide 8</SwiperSlide>
+        <SwiperSlide>
+          <StTitle>플로깅</StTitle>
+          <img src="https://www.jobaba.net/file/image.do?filePath=qjOcXNAS8yGf1OiG0Ekwo4yICIEbI3zZt3DZ0saUkXop5QEoNyC6geAbHpRYmmKI" />
+        </SwiperSlide>
+        <SwiperSlide value="2">
+          <StTitle>텀블러 재사용</StTitle>
+          <img src="https://img.hankyung.com/photo/201912/99.21263281.1.jpg" />
+        </SwiperSlide>
+        <SwiperSlide onClick={onclick}></SwiperSlide>
+        <SwiperSlide onClick={onclick}></SwiperSlide>
+        <SwiperSlide onClick={onclick}></SwiperSlide>
+        <SwiperSlide onClick={onclick}></SwiperSlide>
+        <SwiperSlide onClick={onclick}></SwiperSlide>
+        <SwiperSlide onClick={onclick}></SwiperSlide>
       </Swiper>
     </>
   );
 };
 
 export default Category;
+
+const StTitle = styled.div`
+  width: 95%;
+  background: #e6e6e6;
+  top: 0;
+  padding: 0.5em;
+  border-radius: var(--radius-small);
+`;

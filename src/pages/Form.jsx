@@ -52,8 +52,12 @@ const CommentsList = () => {
             <StImageContainer>
               <img src={img} alt="" />
               <StImageBtnBox>
-                <StImageUploadBtn onClick={imageUpload}></StImageUploadBtn>
-                <StImageRemoveBtn onClick={imageRemove}></StImageRemoveBtn>
+                <StImageUploadBtn onClick={imageUpload}>
+                  ADD IMAGE
+                </StImageUploadBtn>
+                <StImageRemoveBtn onClick={imageRemove}>
+                  REMOVE IAMGE
+                </StImageRemoveBtn>
               </StImageBtnBox>
             </StImageContainer>
           </StFormLeftDiv>
@@ -73,7 +77,7 @@ const CommentsList = () => {
               onChange={contentChange}
             />
             <Btn onClick={submitHandler} size="lg">
-              MISSION COMPLETE
+              MISSION CLEAR
             </Btn>
           </StFormRightDiv>
         </StFormInnerContainer>
@@ -95,6 +99,7 @@ const StFormInnerContainer = styled.div`
   width: 46em;
   height: 26em;
   margin-bottom: 5em;
+  padding: 1em 0.6em 1em 0.3em;
   display: flex;
   flex-flow: row;
   justify-content: space-between;
@@ -103,17 +108,17 @@ const StFormInnerContainer = styled.div`
 `;
 
 const StFormLeftDiv = styled.div`
-  width: 24em;
-  padding: 0.8em;
+  width: 55%;
   display: flex;
   flex-flow: column;
+  justify-content: center;
   align-items: center;
 `;
 
 const StImageContainer = styled.div`
   background: #b1b1b1;
-  width: 22em;
-  height: 21em;
+  width: 95%;
+  height: 20em;
   border-radius: var(--radius-base);
   box-shadow: 0em 0em 0.5em lightgray;
   display: flex;
@@ -127,7 +132,7 @@ const StImageBtnBox = styled.div`
   column-gap: 0.2em;
   position: absolute;
   top: 85%;
-  left: 4%;
+  left: 8%;
 `;
 
 const StImageUploadBtn = styled.button`
@@ -144,6 +149,7 @@ const StImageUploadBtn = styled.button`
   }
   &:hover {
     background: var(--grid-color);
+    color: white;
   }
 `;
 
@@ -160,13 +166,13 @@ const StImageRemoveBtn = styled.button`
   }
   &:hover {
     background: var(--grid-color);
+    color: white;
   }
   cursor: pointer;
 `;
 
 const StFormRightDiv = styled.div`
-  width: 20em;
-  padding: 0.8em;
+  width: 45%;
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -174,7 +180,8 @@ const StFormRightDiv = styled.div`
 
 const StFormTitleLabel = styled.label`
   margin-top: 1em;
-  font-size: 1em;
+  font-size: 1.2em;
+  color: var(--grid-color);
 `;
 
 const StFormTitle = styled.input`
@@ -188,13 +195,14 @@ const StFormTitle = styled.input`
 
 const StFormContentLabel = styled.label`
   margin-bottom: 1em;
-  font-size: 1em;
+  font-size: 1.2em;
+  color: var(--grid-color);
 `;
 
 const StFormContent = styled.textarea`
   width: 22em;
   height: 12em;
-  margin-bottom: 2em;
+  margin-bottom: 3em;
   border: none;
   border-radius: var(--radius-base);
   box-shadow: 0em 0em 0.5em lightgray;

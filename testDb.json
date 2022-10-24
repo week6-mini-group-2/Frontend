@@ -1,18 +1,19 @@
 {
   "posts": [
-    {
-      "postId": 1666426550859,
-      "title": "11",
-      "content": "111",
-      "img": "https://src.hidoc.co.kr/image/lib/2022/4/21/1650520586082_0.jpg",
-      "id": 1
-    }
   ],
   "comments": [
     {
-      "Id": 1,
+      "commentId": 1,
       "body": "some comment",
       "postId": 1
+    }
+  ],
+  "signup": [
+    {
+      "userId": 0,
+      "nickname": "1",
+      "password": "111",
+      "confirmPassword": "111"
     }
   ],
   "profile": {

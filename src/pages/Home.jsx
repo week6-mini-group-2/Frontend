@@ -3,36 +3,53 @@ import styled from "styled-components";
 import "../App.scss";
 import Category from "../components/Category";
 import Header from "../components/Header";
+import PlusBtn from "../elements/PlusBtn";
 
 import "../css/variable.scss";
-import MasonryGrid from "../components/MasonryGrid";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const nav = useNavigate();
+
+  const formHandler = () => {
+    nav("/form");
+  };
+
   return (
     <>
       <Header />
-      <StContainer>
-        <Category />
-      </StContainer>
-      <GridWrap className="grid">
-        <MasonryGrid />
-      </GridWrap>
+      <StConatainer>
+        <StWrap>
+          <Category />
+          <StBtnBox>
+            <PlusBtn size="lg" onClick={formHandler}>
+              ＋
+            </PlusBtn>
+          </StBtnBox>
+        </StWrap>
+      </StConatainer>
     </>
   );
 };
 
 export default Home;
 
-const StContainer = styled.div`
-  display: flex;
-  justify-content: center;
+const StConatainer = styled.div`
+  height: 100vh;
 `;
 
-const GridWrap = styled.div`
-  .grid {
-    background-color: var(--primary-color);
-    color: var(--primary-color);
-  }
+const StWrap = styled.div`
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+`;
+
+const StBtnBox = styled.div`
+  width: 0;
+  position: sticky;
+  top: 90%;
+  left: 95%;
 `;
 
 // const onChange = (e) => {
