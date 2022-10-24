@@ -218,7 +218,7 @@ const StTiltle = styled.p`
   color: var(--grid-color);
 `;
 
-const StLoginInnerBox = styled.div`
+const StLoginInnerBox = styled.form`
   height: 100vh;
   display: flex;
   flex-flow: column;
