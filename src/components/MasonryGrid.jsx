@@ -5,7 +5,6 @@ import Masonry from "@mui/lab/Masonry";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getData } from "../redux/modules/post";
-import { getUser } from "../redux/modules/user";
 
 const MasonryGrid = () => {
   const dispatch = useDispatch();
