@@ -3,18 +3,25 @@ import "../css/variable.scss";
 import "../App.scss";
 import Header from "../components/Header";
 import styled from "styled-components";
-import FormCategory from "../components/FormCategory";
 import useInput from "../hooks/useInput";
 import Btn from "../elements/Btn";
 import { useDispatch } from "react-redux";
 import { postData } from "../redux/modules/post";
 
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import "../css/formCategory.scss";
+import { useNavigate } from "react-router-dom";
+
 const CommentsList = () => {
+  const nav = useNavigate();
   const dispatch = useDispatch();
 
-  const [title, titleChange, titleReset] = useInput("");
-  const [content, contentChange, contentReset] = useInput("");
-  console.log(title, content);
+  const [title, titleChange] = useInput("");
+  const [content, contentChange] = useInput("");
+  const [category, setCategory] = useState("");
 
   const [img, setImg] = useState("");
 
@@ -22,24 +29,26 @@ const CommentsList = () => {
     const imageURL = window.prompt("URL을 입력해주세요.");
     setImg(imageURL);
   };
-  console.log("prompt:", img);
 
   const imageRemove = () => {
     setImg("");
   };
 
-  const submitHandler = (e) => {
-    e.preventDefault();
+  const submitHandler = () => {
     dispatch(
       postData({
-        postId: Date.now(),
+        category,
         title,
         content,
         img,
       })
     );
-    titleReset("");
-    contentReset("");
+
+    nav("/");
+  };
+
+  const handleChange = (e) => {
+    setCategory(e.target.value);
   };
 
   return (
@@ -48,7 +57,24 @@ const CommentsList = () => {
       <StFormContainer>
         <StFormInnerContainer>
           <StFormLeftDiv>
-            <FormCategory />
+            <FormControl className="formCategory" sx={{ m: 2 }}>
+              <InputLabel id="demo-select-small">CATEGORIES</InputLabel>
+              <Select
+                labelId="demo-select-small"
+                id="demo-select-small"
+                value={category}
+                label="CATEGORIES"
+                onChange={handleChange}
+              >
+                <MenuItem value={1}>플로깅</MenuItem>
+                <MenuItem value={2}>텀블러 재사용</MenuItem>
+                <MenuItem value={3}>페트병 라벨 제거</MenuItem>
+                <MenuItem value={4}>박스 테이프 제거</MenuItem>
+                <MenuItem value={5}>장바구니 사용</MenuItem>
+                <MenuItem value={6}>미사용 플러그 뽑기</MenuItem>
+              </Select>
+            </FormControl>
+            {/* <FormCategory category={category} /> */}
             <StImageContainer>
               <img src={img} alt="" />
               <StImageBtnBox>
@@ -111,7 +137,7 @@ const StFormLeftDiv = styled.div`
   width: 55%;
   display: flex;
   flex-flow: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `;
 

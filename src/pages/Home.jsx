@@ -20,8 +20,8 @@ const Home = () => {
     <>
       <Header />
       <StConatainer>
+        <Category />
         <StWrap>
-          <Category />
           <Mypage />
           <GridWrap className="grid">
             <MasonryGrid />

@@ -4,11 +4,20 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import "../css/variable.scss";
 import Btn from "../elements/Btn";
+import { userSignup } from "../redux/modules/user";
+import useInput from "../hooks/useInput";
+
+import { nicknameCheck } from "../shared/regExp";
 
 const Login = () => {
   const nav = useNavigate();
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false);
+
+  const [nickname, nicknameHandler] = useInput("");
+  const [password, passwordHandler] = useInput("");
+  const [confirmPassword, confirmPasswordHandler] = useInput("");
+  console.log("여기확인", nickname, password, confirmPassword);
 
   const changeIsEdit = (e) => {
     e.preventDefault();
@@ -16,9 +25,29 @@ const Login = () => {
   };
 
   const submitHandler = (e) => {
+    if (nickname === "" || password === "" || confirmPassword === "") {
+      window.alert("닉네임, 패스워드를 모두 입력해주세요!");
+      return;
+    }
+
+    if (!nicknameCheck(nickname)) {
+      window.alert("닉네임은 숫자 및 영어만 입력가능합니다.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      window.alert("비밀번호와 비밀번호 재확인이 일치하지 않습니다.");
+      return;
+    }
     e.preventDefault();
-    dispatch();
-    nav("/");
+    dispatch(
+      userSignup({
+        nickname,
+        password,
+        confirmPassword,
+      })
+    );
+    nav("/login");
   };
 
   return (
@@ -58,11 +87,23 @@ const Login = () => {
             <StLoginInnerBox>
               <StLoginInputWrap>
                 <StLoginLabel>NICKNAME</StLoginLabel>
-                <StLoginInput />
+                <StLoginInput
+                  name="nickname"
+                  value={nickname}
+                  onChange={nicknameHandler}
+                />
                 <StLoginLabel>PASSWORD</StLoginLabel>
-                <StLoginInput />
+                <StLoginInput
+                  name="password"
+                  value={password}
+                  onChange={passwordHandler}
+                />
                 <StLoginLabel>CONFIRM PASSWORD</StLoginLabel>
-                <StLoginInput />
+                <StLoginInput
+                  name="confirmPassword"
+                  value={confirmPassword}
+                  onChange={confirmPasswordHandler}
+                />
               </StLoginInputWrap>
               <Btn size="lg" onClick={submitHandler}>
                 SUBMIT

@@ -7,8 +7,9 @@ import { useEffect } from "react";
 import { getData } from "../redux/modules/post";
 
 const MasonryGrid = () => {
+  const nav = useNavigate();
   const dispatch = useDispatch();
-  const { posts } = useSelector((state) => state.post);
+  const posts = useSelector((state) => state.posts.posts);
 
   console.log("post test :", posts);
 
@@ -25,7 +26,7 @@ const MasonryGrid = () => {
       }}>
       <Box style={{ width: "90rem", minHeight: "60rem" }}>
         <Masonry columns={6} spacing={3} id="hoverAni">
-          {posts.map((item) => (
+          {posts?.map((item) => (
             <div key={item.postId}>
               <div className="masonryContents">
                 <img
