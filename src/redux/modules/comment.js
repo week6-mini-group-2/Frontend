@@ -5,6 +5,8 @@ import axios from "axios";
 const initialState = {
   comments: [
     {
+      category: 0,
+      id: 0,
       comment: "",
     },
   ],
@@ -76,18 +78,6 @@ export const commentSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(addComments.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(addComments.fulfilled, (state, action) => {
-      console.log("add부분:", state, action);
-      state.isLoading = false;
-      state.comments.push(action.payload);
-    });
-    builder.addCase(addComments.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    });
     builder.addCase(getComments.pending, (state) => {
       state.isLoading = true;
     });
@@ -97,6 +87,18 @@ export const commentSlice = createSlice({
       state.comments = action.payload;
     });
     builder.addCase(getComments.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(addComments.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(addComments.fulfilled, (state, action) => {
+      console.log("add부분:", state, action);
+      state.isLoading = false;
+      state.comments.push(action.payload);
+    });
+    builder.addCase(addComments.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     });

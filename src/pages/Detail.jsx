@@ -3,15 +3,19 @@ import Header from "../components/Header";
 import styled from "styled-components";
 import "../css/variable.scss";
 import Btn from "../elements/Btn";
-import { editData, removeData } from "../redux/modules/post";
+import { editData, getData, removeData } from "../redux/modules/post";
 
 import { useDispatch, useSelector } from "react-redux";
 import Comment from "./Comment";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 const Detail = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
   console.log("posts:", posts);
+  const { postId } = useParams();
+  const post = posts.filter((post) => post.id === +postId);
 
   const removeHandler = () => {
     dispatch(removeData());
@@ -21,6 +25,10 @@ const Detail = () => {
     dispatch(editData());
   };
 
+  useEffect(() => {
+    dispatch(getData());
+  }, [dispatch]);
+
   return (
     <>
       <Header />
@@ -28,17 +36,17 @@ const Detail = () => {
         <StFormInnerContainer>
           <StFormLeftDiv>
             <StFormLeftTextWrap>
-              <StFormTitle>TITLE</StFormTitle>
-              <StFormName>NICKNAME</StFormName>
+              <StFormTitle>{post?.title}</StFormTitle>
+              <StFormName>닉네임</StFormName>
             </StFormLeftTextWrap>
-            <StImageContainer>URL 이미지 출력</StImageContainer>
+            <StImageContainer>{post?.img}</StImageContainer>
           </StFormLeftDiv>
           <StFormRightDiv>
             <StFormContentWrap>
               <StFormContent>CONTENT</StFormContent>
-              <div>BODY</div>
+              <div>{post?.conetent}</div>
             </StFormContentWrap>
-            <Comment />
+            <Comment postId={postId} />
           </StFormRightDiv>
         </StFormInnerContainer>
         <StBtnBox>

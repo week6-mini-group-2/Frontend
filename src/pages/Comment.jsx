@@ -10,10 +10,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-const Comment = () => {
+const Comment = ({ postId }) => {
   const nav = useNavigate();
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.comments.comments);
+  const comment = comments.map((comment) => comment.id === postId);
 
   const removeCommentHandler = () => {
     dispatch(removeComments());
@@ -33,58 +34,20 @@ const Comment = () => {
       </StBtnDiv>
       <StCommentDivWrap>
         <StCommentInnerWrap>
-          <StCommentDiv>
-            <StCommentName>NICKNAME</StCommentName>
-            <div>BODY</div>
-          </StCommentDiv>
+          {comments
+            ?.filter((comment) => comment.category === categoryId)
+            .map((comment) => {
+              <StCommentDiv>
+                <StCommentName key={comment.id}>닉네임</StCommentName>
+                <div>BODY</div>
+              </StCommentDiv>;
+            })}
           <StCommentBtnWrap>
             <StCommentBtn>
               <FontAwesomeIcon icon={faPencil} onClick={editCommentHandler} />
             </StCommentBtn>
             <StCommentBtn>
               <FontAwesomeIcon icon={faTrash} onClick={removeCommentHandler} />
-            </StCommentBtn>
-          </StCommentBtnWrap>
-        </StCommentInnerWrap>
-        <StCommentInnerWrap>
-          <StCommentDiv>
-            <StCommentName>NICKNAME</StCommentName>
-            <div>BODY</div>
-          </StCommentDiv>
-          <StCommentBtnWrap>
-            <StCommentBtn>
-              <FontAwesomeIcon icon={faPencil} />
-            </StCommentBtn>
-            <StCommentBtn>
-              <FontAwesomeIcon icon={faTrash} />
-            </StCommentBtn>
-          </StCommentBtnWrap>
-        </StCommentInnerWrap>
-        <StCommentInnerWrap>
-          <StCommentDiv>
-            <StCommentName>NICKNAME</StCommentName>
-            <div>BODY</div>
-          </StCommentDiv>
-          <StCommentBtnWrap>
-            <StCommentBtn>
-              <FontAwesomeIcon icon={faPencil} />
-            </StCommentBtn>
-            <StCommentBtn>
-              <FontAwesomeIcon icon={faTrash} />
-            </StCommentBtn>
-          </StCommentBtnWrap>
-        </StCommentInnerWrap>
-        <StCommentInnerWrap>
-          <StCommentDiv>
-            <StCommentName>NICKNAME</StCommentName>
-            <div>BODY</div>
-          </StCommentDiv>
-          <StCommentBtnWrap>
-            <StCommentBtn>
-              <FontAwesomeIcon icon={faPencil} />
-            </StCommentBtn>
-            <StCommentBtn>
-              <FontAwesomeIcon icon={faTrash} />
             </StCommentBtn>
           </StCommentBtnWrap>
         </StCommentInnerWrap>

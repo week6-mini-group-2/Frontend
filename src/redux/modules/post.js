@@ -6,10 +6,10 @@ const initialState = {
   posts: [
     {
       category: 0,
+      id: 0,
       title: "",
       content: "",
       img: "",
-      id: 0,
     },
   ],
   isLoading: false,

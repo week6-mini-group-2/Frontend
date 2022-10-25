@@ -1,62 +1,17 @@
 {
   "posts": [
     {
-      "category": 3,
-      "title": "ㅁㄴㅇㅁㄴㅇㅁㄴㅇ",
-      "content": "ㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇ",
-      "img": "https://www.jobaba.net/file/image.do?filePath=qjOcXNAS8yGf1OiG0Ekwo4yICIEbI3zZt3DZ0saUkXop5QEoNyC6geAbHpRYmmKI",
-      "id": 1666634705844
+      "category": 6,
+      "title": "플러그 뽑고 출근했어요",
+      "content": "전기 절약!",
+      "img": "https://mblogthumb-phinf.pstatic.net/MjAxOTA0MjZfMTY3/MDAxNTU2MjU4NzExMDE3.O0keTMsgmc_5JHmmAHAFt5_8r0J83Hjbf9sENpY2fGEg.GW_eIVy_pVFNc7VQFfhSBY3Tm6B9Jwma2k5_4qmMHTIg.JPEG.iamkowepo/yaytg521092.jpg?type=w800",
+      "id": 1666658069097
     }
   ],
   "comments": [
     {
-      "Id": 1,
-      "body": "some content",
-      "postId": 1
-    },
-    {
-      "id": 1666636888678,
+      "id": 1666659814202,
       "comment": ""
-    },
-    {
-      "id": 1666636968754,
-      "comment": ""
-    },
-    {
-      "id": 1666636971257,
-      "comment": "a"
-    },
-    {
-      "id": 1666636971303,
-      "comment": "as"
-    },
-    {
-      "id": 1666636971380,
-      "comment": "asd"
-    },
-    {
-      "id": 1666636971730,
-      "comment": "asda"
-    },
-    {
-      "id": 1666636971796,
-      "comment": "asdas"
-    },
-    {
-      "id": 1666636971807,
-      "comment": "asdasd"
-    },
-    {
-      "id": 1666636972146,
-      "comment": "asdasda"
-    },
-    {
-      "id": 1666636972155,
-      "comment": "asdasdas"
-    },
-    {
-      "id": 1666636972223,
-      "comment": "asdasdasd"
     }
   ],
   "users": {
