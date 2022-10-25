@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+/* api import with environment */
+import api from "../../feature/Api";
+
 /* InitialState */
 const initialState = {
   posts: [
@@ -15,18 +18,20 @@ const initialState = {
   ],
   isLoading: false,
 };
-export const getData = createAsyncThunk("post/getData", async (_, thunkAPI) => {
-  try {
-    const res = await axios.get("http://localhost:3002/posts");
-    //const todoData = res.data;
-    console.log(res);
-    /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
-    return thunkAPI.fulfillWithValue(res.data);
-  } catch (err) {
-    console.log(err);
-    return thunkAPI.rejectWithValue(err);
+export const getData = createAsyncThunk(
+  "post/getData",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await axios.get("http://54.180.29.110/posts");
+      console.log(res.data.result);
+      /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
+      return thunkAPI.fulfillWithValue(res.data.result);
+    } catch (err) {
+      console.log(err);
+      return thunkAPI.rejectWithValue(err);
+    }
   }
-});
+);
 
 /* 게시글 id 값을 부여 후 todo 추가 get -> post  */
 
@@ -102,14 +107,10 @@ const postStore = createSlice({
 
   extraReducers: (builder) => {
     /* ----------- getData(전체 게시글 조회) ---------------- */
-    builder.addCase(getData.pending, (state) => {
-      state.isLoading = true;
-      console.log("pending", state.isLoading);
-    });
     builder.addCase(getData.fulfilled, (state, action) => {
       state.posts = action.payload;
       state.isLoading = false;
-      console.log("fulfilled :", state);
+      console.log("fulfilled :", state.posts);
     });
     builder.addCase(getData.rejected, (state) => {
       state.isLoading = false;
