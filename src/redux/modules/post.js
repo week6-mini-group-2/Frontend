@@ -1,31 +1,26 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+
+/* api import with environment */
+import api from "../../feature/Api";
 
 /* InitialState */
 const initialState = {
-  posts: [
-    {
-      category: 0,
-      id: 0,
-      title: "",
-      content: "",
-      img: "",
-    },
-  ],
   isLoading: false,
 };
-export const getData = createAsyncThunk("post/getData", async (_, thunkAPI) => {
-  try {
-    const res = await axios.get("http://localhost:3002/posts");
-    //const todoData = res.data;
-    console.log(res);
-    /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
-    return thunkAPI.fulfillWithValue(res.data);
-  } catch (err) {
-    console.log(err);
-    return thunkAPI.rejectWithValue(err);
+export const getData = createAsyncThunk(
+  "posts/getData",
+  async (_, thunkAPI) => {
+    try {
+      const res = await api.get("/posts");
+      console.log(res.data.result);
+      /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
+      return thunkAPI.fulfillWithValue(res.data.result);
+    } catch (err) {
+      console.log(err);
+      return thunkAPI.rejectWithValue(err);
+    }
   }
-});
+);
 
 /* 게시글 id 값을 부여 후 todo 추가 get -> post  */
 
@@ -34,7 +29,7 @@ export const postData = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log("payload:", payload);
     try {
-      const res = await axios.post("http://localhost:3002/posts", payload);
+      const res = await api.post("/posts", payload);
       console.log("post res:", res);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);
@@ -52,10 +47,7 @@ export const editData = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log("여기payload:", payload);
     try {
-      const res = await axios.patch(
-        `http://localhost:3002/posts/${payload.id}`,
-        payload
-      );
+      const res = await api.patch(`/posts/${payload.postId}`, payload);
       console.log(res);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);
@@ -72,7 +64,7 @@ export const removeData = createAsyncThunk(
   "posts/deleteData",
   async (postId, thunkAPI) => {
     try {
-      await axios.delete(`http://localhost:3002/posts/${postId}`);
+      await api.delete(`/posts/${postId}`);
       //const todoData = res.data;
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(postId);
@@ -101,14 +93,10 @@ const postStore = createSlice({
 
   extraReducers: (builder) => {
     /* ----------- getData(전체 게시글 조회) ---------------- */
-    builder.addCase(getData.pending, (state) => {
-      state.isLoading = true;
-      console.log("pending", state.isLoading);
-    });
     builder.addCase(getData.fulfilled, (state, action) => {
       state.posts = action.payload;
       state.isLoading = false;
-      console.log("fulfilled :", state);
+      console.log("fulfilled :", state.posts);
     });
     builder.addCase(getData.rejected, (state) => {
       state.isLoading = false;

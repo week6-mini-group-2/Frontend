@@ -32,25 +32,19 @@ const MasonryGrid = () => {
         <Masonry columns={6} spacing={3} id="hoverAni">
           {posts?.map((item) => (
             <div key={item.postId}>
-              <StPostBox
-                className="masonryContents"
-                onClick={() => nav(`/detail/${item.id}`)}
-              >
-                <div>
-                  <img
-                    src={item.img}
-                    srcSet={item.img}
-                    alt={item.title}
-                    loading="lazy"
-                    style={{
-                      borderRadius: 7,
-
-                      width: "100%",
-                    }}
-                  />
-                </div>
-                <StBody className="masonryLabel">{item.title}</StBody>
-              </StPostBox>
+              <div className="masonryContents">
+                <img
+                  src={item.imageUrl}
+                  alt={item.title}
+                  loading="lazy"
+                  style={{
+                    borderRadius: 7,
+                    width: "100%",
+                    boxShadow: "var(--grid-shadow)",
+                  }}
+                />
+                <div className="masonryLabel">{item.title}</div>
+              </div>
             </div>
           ))}
         </Masonry>
@@ -60,14 +54,3 @@ const MasonryGrid = () => {
 };
 
 export default MasonryGrid;
-
-const StPostBox = styled.div`
-  height: 100%;
-  border-radius: var(--radius-base);
-  cursor: pointer;
-`;
-
-const StBody = styled.div`
-  color: white;
-  width: 100%;
-`;

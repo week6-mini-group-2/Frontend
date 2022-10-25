@@ -1,18 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+
+// import axios from "axios";
+
+/* api import with environment */
+import api from "../../feature/Api";
 
 /* InitialState */
 const initialState = {
-  users: [{}],
+  // users: [{}],
   isLoading: false,
 };
 
-/* 로그인 정보 불러오기 */
+/* 로그인 정보 불러오기 (mypage) */
 
 export const getUser = createAsyncThunk("user/getUser", async (_, thunkAPI) => {
   try {
-    const res = await axios.get("http://localhost:3002/users");
-    console.log(res);
+    const res = await api.get("/users");
     /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
     return thunkAPI.fulfillWithValue(res.data);
   } catch (err) {
@@ -27,20 +30,18 @@ export const userLogin = createAsyncThunk(
   "user/userLogin",
   async (payload, thunkAPI) => {
     console.log("payload:", payload);
-    const res = await axios
-      .post("http://localhost:3002/users", payload)
-      .then((res) => {
-        /* 통신 상태가 잘 이루어짐 (200) */
-        if (res.data.status === 200) {
-          /* 토큰 값 (pw) 넘겨주기 */
+    const res = await api.post("/users", payload).then((res) => {
+      /* 통신 상태가 잘 이루어짐 (200) */
+      if (res.data.status === 200) {
+        /* 토큰 값 (pw) 넘겨주기 */
 
-          /* 닉네임 넘겨주기 */
+        /* 닉네임 넘겨주기 */
 
-          return res;
-        } else {
-          return res;
-        }
-      });
+        return res;
+      } else {
+        return res;
+      }
+    });
     return thunkAPI.fulfillWithValue(res.data);
   }
 );
@@ -51,7 +52,7 @@ export const deleteUser = createAsyncThunk(
   "user/deleteUser",
   async (_, thunkAPI) => {
     try {
-      const res = await axios.delete("http://localhost:3002/users");
+      const res = await api.delete("/users");
       console.log(res);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);
@@ -68,7 +69,7 @@ export const updateUser = createAsyncThunk(
   "user/updateUser",
   async (_, thunkAPI) => {
     try {
-      const res = await axios.patch("http://localhost:3002/users");
+      const res = await api.patch("/users");
       console.log(res);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);
@@ -82,14 +83,11 @@ export const updateUser = createAsyncThunk(
 /* 회원가입 */
 
 export const userSignup = createAsyncThunk(
-  "user/userSignup",
+  "users/signup",
   async (payload, thunkAPI) => {
     console.log("여기payload:", payload);
     try {
-      const res = await axios.post(
-        `http://localhost:3002/users/${payload.id}`,
-        payload
-      );
+      const res = await api.post("users/signup", payload);
       if (res.data.status !== 200) {
         return window.alert("회원가입에 실패 하였습니다.");
       } else {
@@ -115,11 +113,11 @@ const postStore = createSlice({
   reducers: {},
 
   /* 비동기 관련 */
-  /* How return for pending (네트워크 요청 시작), fulfilled (네트워크 요청 끝), rejected (네트워크 요청 끝 -> 에러 발생) */
+  /* How to return for pending (네트워크 요청 시작), fulfilled (네트워크 요청 끝), rejected (네트워크 요청 끝 -> 에러 발생) */
   /* addCase는 내장함수 */
 
   extraReducers: (builder) => {
-    /* ----------- getData(전체 게시글 조회) ---------------- */
+    /* ----------- userLogin(User 정보 서버와 match) ---------------- */
     builder.addCase(userLogin.pending, (state) => {
       state.isLoading = true;
       console.log("pending", state.isLoading);
@@ -134,7 +132,7 @@ const postStore = createSlice({
       console.log("error");
     });
 
-    /* ----------- postData(Todo 추가) ---------------- */
+    /* ----------- userSignup(입력 정보를 새로 데이터베이스에 넘기는) ---------------- */
     builder.addCase(userSignup.pending, (state) => {
       state.isLoading = true;
       console.log("pending", state.isLoading);
