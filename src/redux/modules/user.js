@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-// import axios from "axios";
+import axios from "axios";
 
-/* api import with environment */
+/* axios import with environment */
 import api from "../../feature/Api";
 
 /* InitialState */
@@ -15,7 +15,7 @@ const initialState = {
 
 export const getUser = createAsyncThunk("user/getUser", async (_, thunkAPI) => {
   try {
-    const res = await api.get("/users");
+    const res = await axios.get("/users");
     /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
     return thunkAPI.fulfillWithValue(res.data);
   } catch (err) {
@@ -30,7 +30,7 @@ export const userLogin = createAsyncThunk(
   "user/userLogin",
   async (payload, thunkAPI) => {
     console.log("payload:", payload);
-    const res = await api.post("/users", payload).then((res) => {
+    const res = await axios.post("/users", payload).then((res) => {
       /* 통신 상태가 잘 이루어짐 (200) */
       if (res.data.status === 200) {
         /* 토큰 값 (pw) 넘겨주기 */
@@ -52,7 +52,7 @@ export const deleteUser = createAsyncThunk(
   "user/deleteUser",
   async (_, thunkAPI) => {
     try {
-      const res = await api.delete("/users");
+      const res = await axios.delete("/users");
       console.log(res);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);
@@ -69,7 +69,7 @@ export const updateUser = createAsyncThunk(
   "user/updateUser",
   async (_, thunkAPI) => {
     try {
-      const res = await api.patch("/users");
+      const res = await axios.patch("/users");
       console.log(res);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);
@@ -87,7 +87,7 @@ export const userSignup = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log("여기payload:", payload);
     try {
-      const res = await api.post("users/signup", payload);
+      const res = await api.post("/users/signup", payload);
       console.log("res:", res);
       return thunkAPI.fulfillWithValue(res.data);
     } catch (err) {
@@ -134,15 +134,13 @@ const postStore = createSlice({
     //   state.isLoading = true;
     //   console.log("pending", state.isLoading);
     // });
-    // builder.addCase(userSignup.fulfilled, (state, action) => {
-    //   state.users.signup.push(action.payload);
-    //   state.isLoading = false;
-    //   console.log("fulfilled : ", state);
-    // });
-    // builder.addCase(userSignup.rejected, (state) => {
-    //   state.isLoading = false;
-    //   console.log("error");
-    // });
+    builder.addCase(userSignup.fulfilled, (state, action) => {
+      console.log("fulfilled : ", state, action);
+    });
+    builder.addCase(userSignup.rejected, (state) => {
+      state.isLoading = false;
+      console.log("error");
+    });
   },
 });
 
