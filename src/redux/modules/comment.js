@@ -3,11 +3,6 @@ import axios from "axios";
 
 //initialState
 const initialState = {
-  comments: [
-    {
-      comment: "",
-    },
-  ],
   isLoading: false,
   error: null,
 };
@@ -18,7 +13,7 @@ export const getComments = createAsyncThunk(
   async (_, thunkAPI) => {
     // console.log("aaapayload:", payload);
     try {
-      const data = await axios.get(`http://localhost:3002/comments`);
+      const data = await axios.get(`http://54.180.29.110/posts`);
       console.log("data:", data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -32,7 +27,7 @@ export const addComments = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log("addpayload:", payload);
     try {
-      const data = await axios.post("http://localhost:3002/comments", payload);
+      const data = await axios.post("http://54.180.29.110/posts", payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -40,14 +35,12 @@ export const addComments = createAsyncThunk(
   }
 );
 
-export const deleteComments = createAsyncThunk(
+export const removeComments = createAsyncThunk(
   "comments/deleteComments",
   async (payload, thunkAPI) => {
     console.log("id, postId:", payload);
     try {
-      await axios.delete(
-        `http://localhost:3002/comments/comments/${payload.id}`
-      );
+      await axios.delete(`http://54.180.29.110/posts${payload.id}`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -60,7 +53,7 @@ export const editComments = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.patch(
-        `http://localhost:3002/comments/comments/${payload.id}`,
+        `http://54.180.29.110/posts${payload.id}`,
         payload
       );
       return thunkAPI.fulfillWithValue(data.data);
@@ -76,18 +69,6 @@ export const commentSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(addComments.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(addComments.fulfilled, (state, action) => {
-      console.log("add부분:", state, action);
-      state.isLoading = false;
-      state.comments.push(action.payload);
-    });
-    builder.addCase(addComments.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    });
     builder.addCase(getComments.pending, (state) => {
       state.isLoading = true;
     });
@@ -100,10 +81,22 @@ export const commentSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     });
-    builder.addCase(deleteComments.pending, (state) => {
+    builder.addCase(addComments.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(deleteComments.fulfilled, (state, action) => {
+    builder.addCase(addComments.fulfilled, (state, action) => {
+      console.log("add부분:", state, action);
+      state.isLoading = false;
+      state.comments.push(action.payload);
+    });
+    builder.addCase(addComments.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(removeComments.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(removeComments.fulfilled, (state, action) => {
       console.log("delete부분:", state, action);
       state.isLoading = false;
       const idx = state.comments.findIndex(
@@ -111,7 +104,7 @@ export const commentSlice = createSlice({
       );
       state.comments.splice(idx, 1);
     });
-    builder.addCase(deleteComments.rejected, (state, action) => {
+    builder.addCase(removeComments.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     });

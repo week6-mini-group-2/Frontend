@@ -1,9 +1,11 @@
 // Package import
 import axios from "axios";
 
+// axios.defaults.withCredentials = true;
+
 /* Axios instacne create */
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: "http://54.180.29.110",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json",
@@ -11,11 +13,13 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const token = sessionStorage.getItem("accessToken");
-  const refreshToken = sessionStorage.getItem("refreshToken");
+  // const token = sessionStorage.getItem("AccessToken");
+  // const refreshToken = sessionStorage.getItem("RefreshToken");
 
-  config.headers.common["Authorization"] = token;
-  config.headers.common["reAuthorization"] = refreshToken;
+  // console.log("여기:", sessionStorage);
+
+  // config.headers.common["Authorization"] = token;
+  // config.headers.common["reAuthorization"] = refreshToken;
 
   return config;
 });

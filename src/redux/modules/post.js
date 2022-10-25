@@ -1,28 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+
+/* api import with environment */
+import api from "../../feature/Api";
 
 /* api import with environment */
 import api from "../../feature/Api";
 
 /* InitialState */
 const initialState = {
-  posts: [
-    {
-      // category: 0,
-      postId: 0,
-      // nickname: "buddle",
-      title: "",
-      content: "",
-      img: "",
-    },
-  ],
   isLoading: false,
 };
 export const getData = createAsyncThunk(
-  "post/getData",
-  async (payload, thunkAPI) => {
+  "posts/getData",
+  async (_, thunkAPI) => {
     try {
-      const res = await axios.get("http://54.180.29.110/posts");
+      const res = await api.get("/posts");
       console.log(res.data.result);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data.result);
@@ -36,11 +28,11 @@ export const getData = createAsyncThunk(
 /* 게시글 id 값을 부여 후 todo 추가 get -> post  */
 
 export const postData = createAsyncThunk(
-  "post/postData",
+  "posts/postData",
   async (payload, thunkAPI) => {
     console.log("payload:", payload);
     try {
-      const res = await axios.post("http://localhost:3002/posts", payload);
+      const res = await api.post("/posts", payload);
       console.log("post res:", res);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);
@@ -53,15 +45,12 @@ export const postData = createAsyncThunk(
 
 /* 해당 id의 todo 를 update 인자에 저장 후 반환 */
 
-export const updateData = createAsyncThunk(
+export const editData = createAsyncThunk(
   "posts/updateData",
   async (payload, thunkAPI) => {
     console.log("여기payload:", payload);
     try {
-      const res = await axios.patch(
-        `http://localhost:3002/posts/${payload.id}`,
-        payload
-      );
+      const res = await api.patch(`/posts/${payload.postId}`, payload);
       console.log(res);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);
@@ -74,11 +63,11 @@ export const updateData = createAsyncThunk(
 
 /* 해당 id에 todo를 삭제 */
 
-export const deleteData = createAsyncThunk(
+export const removeData = createAsyncThunk(
   "posts/deleteData",
   async (postId, thunkAPI) => {
     try {
-      await axios.delete(`http://localhost:3002/posts/${postId}`);
+      await api.delete(`/posts/${postId}`);
       //const todoData = res.data;
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(postId);
@@ -133,11 +122,11 @@ const postStore = createSlice({
     });
 
     /* ----------- updateData(Todo 수정) ---------------- */
-    builder.addCase(updateData.pending, (state) => {
+    builder.addCase(editData.pending, (state) => {
       state.isLoading = true;
       console.log("pending");
     });
-    builder.addCase(updateData.fulfilled, (state, action) => {
+    builder.addCase(editData.fulfilled, (state, action) => {
       state.isLoading = false;
       const idx = state.posts.findIndex(
         (todo) => todo.id === action.payload.id
@@ -145,23 +134,23 @@ const postStore = createSlice({
       state.posts[idx] = action.payload;
       console.log("fulfilled : ", state);
     });
-    builder.addCase(updateData.rejected, (state) => {
+    builder.addCase(editData.rejected, (state) => {
       state.isLoading = false;
       console.log("error");
     });
 
     /* ----------- deleteData(Todo 삭제) ---------------- */
-    builder.addCase(deleteData.pending, (state) => {
+    builder.addCase(removeData.pending, (state) => {
       state.isLoading = true;
       console.log("pending");
     });
-    builder.addCase(deleteData.fulfilled, (state, action) => {
+    builder.addCase(removeData.fulfilled, (state, action) => {
       state.isLoading = false;
       const idx = state.posts.findIndex((todo) => todo.id === action.payload);
       state.posts.splice([idx], 1);
       console.log("fulfilled :", state);
     });
-    builder.addCase(deleteData.rejected, (state) => {
+    builder.addCase(removeData.rejected, (state) => {
       state.isLoading = false;
       console.log("error");
     });

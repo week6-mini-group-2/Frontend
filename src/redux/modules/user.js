@@ -1,9 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+
+// import axios from "axios";
+
+/* api import with environment */
+import api from "../../feature/Api";
 
 /* InitialState */
 const initialState = {
-  users: [{}],
+  // users: [{}],
   isLoading: false,
 };
 
@@ -11,7 +15,7 @@ const initialState = {
 
 export const getUser = createAsyncThunk("user/getUser", async (_, thunkAPI) => {
   try {
-    const res = await axios.get("http://54.180.29.110/users");
+    const res = await api.get("/users");
     /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
     return thunkAPI.fulfillWithValue(res.data);
   } catch (err) {
@@ -26,20 +30,18 @@ export const userLogin = createAsyncThunk(
   "user/userLogin",
   async (payload, thunkAPI) => {
     console.log("payload:", payload);
-    const res = await axios
-      .post("http://localhost:3002/users", payload)
-      .then((res) => {
-        /* 통신 상태가 잘 이루어짐 (200) */
-        if (res.data.status === 200) {
-          /* 토큰 값 (pw) 넘겨주기 */
+    const res = await api.post("/users", payload).then((res) => {
+      /* 통신 상태가 잘 이루어짐 (200) */
+      if (res.data.status === 200) {
+        /* 토큰 값 (pw) 넘겨주기 */
 
-          /* 닉네임 넘겨주기 */
+        /* 닉네임 넘겨주기 */
 
-          return res;
-        } else {
-          return res;
-        }
-      });
+        return res;
+      } else {
+        return res;
+      }
+    });
     return thunkAPI.fulfillWithValue(res.data);
   }
 );
@@ -50,7 +52,7 @@ export const deleteUser = createAsyncThunk(
   "user/deleteUser",
   async (_, thunkAPI) => {
     try {
-      const res = await axios.delete("http://localhost:3002/users");
+      const res = await api.delete("/users");
       console.log(res);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);
@@ -67,7 +69,7 @@ export const updateUser = createAsyncThunk(
   "user/updateUser",
   async (_, thunkAPI) => {
     try {
-      const res = await axios.patch("http://localhost:3002/users");
+      const res = await api.patch("/users");
       console.log(res);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);
@@ -81,22 +83,16 @@ export const updateUser = createAsyncThunk(
 /* 회원가입 */
 
 export const userSignup = createAsyncThunk(
-  "user/userSignup",
+  "users/signup",
   async (payload, thunkAPI) => {
     console.log("여기payload:", payload);
     try {
-      const res = await axios.post(
-        `http://localhost:3002/users/${payload.id}`,
-        payload
-      );
+      const res = await api.post("users/signup", payload);
       if (res.data.status !== 200) {
         return window.alert("회원가입에 실패 하였습니다.");
       } else {
         return window.alert("회원이 되신 것을 환영합니다.");
       }
-      console.log(res);
-      /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
-      return thunkAPI.fulfillWithValue(res.data);
     } catch (err) {
       console.log(err);
       return thunkAPI.rejectWithValue(err);
@@ -110,7 +106,7 @@ post : 게시글 작성  get : 게시글 전체 조회, 게시글 조회 put : �
 toolkit의 기능으로 객체 불변성 신경 x , payload라는 매개변수는 고정 값*/
 
 const postStore = createSlice({
-  name: "posts", // module`s name
+  name: "users", // module`s name
   initialState, // this module`s initialState
 
   /* reducer logic */
