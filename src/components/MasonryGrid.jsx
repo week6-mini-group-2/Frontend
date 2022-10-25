@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getData } from "../redux/modules/post";
 import { getUser } from "../redux/modules/user";
+import { useNavigate } from "react-router-dom";
 
 const MasonryGrid = () => {
   const nav = useNavigate();
@@ -24,7 +25,8 @@ const MasonryGrid = () => {
         display: "flex",
         justifyContent: "center",
         marginTop: "20%",
-      }}>
+      }}
+    >
       <Box style={{ width: "90rem", minHeight: "60rem" }}>
         <Masonry columns={6} spacing={3} id="hoverAni">
           {posts?.map((item) => (

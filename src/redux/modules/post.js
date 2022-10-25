@@ -3,9 +3,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 /* api import with environment */
 import api from "../../feature/Api";
 
-/* api import with environment */
-import api from "../../feature/Api";
-
 /* InitialState */
 const initialState = {
   isLoading: false,
