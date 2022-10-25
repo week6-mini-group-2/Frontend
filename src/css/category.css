@@ -1,21 +1,17 @@
 .swiper {
-  background: black;
-  margin: 1em;
-  width: 80%;
-  height: 50%;
+  width: 70%;
+  height: 20%;
+  box-shadow: 0em 0.1em rgb(228, 228, 228);
 }
 
 .swiper-slide {
   text-align: center;
-  font-size: 30px;
-  background: #fff;
+  font-size: 1em;
   /* Center slide text vertically */
   display: flex;
-  justify-content: center;
+  flex-flow: column;
+  justify-content: space-between;
   align-items: center;
-  font-size: 12em;
-  border-radius: var(--radius-small);
-  cursor: pointer;
 }
 
 .swiper-slide img {
@@ -24,4 +20,6 @@
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  border-radius: var(--radius-base);
+  cursor: pointer;
 }/*# sourceMappingURL=category.css.map */
