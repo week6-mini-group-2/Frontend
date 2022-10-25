@@ -88,11 +88,8 @@ export const userSignup = createAsyncThunk(
     console.log("여기payload:", payload);
     try {
       const res = await api.post("users/signup", payload);
-      if (res.data.status !== 200) {
-        return window.alert("회원가입에 실패 하였습니다.");
-      } else {
-        return window.alert("회원이 되신 것을 환영합니다.");
-      }
+      console.log("res:", res);
+      return thunkAPI.fulfillWithValue(res.data);
     } catch (err) {
       console.log(err);
       return thunkAPI.rejectWithValue(err);
@@ -133,19 +130,19 @@ const postStore = createSlice({
     });
 
     /* ----------- userSignup(입력 정보를 새로 데이터베이스에 넘기는) ---------------- */
-    builder.addCase(userSignup.pending, (state) => {
-      state.isLoading = true;
-      console.log("pending", state.isLoading);
-    });
-    builder.addCase(userSignup.fulfilled, (state, action) => {
-      state.posts.push(action.payload);
-      state.isLoading = false;
-      console.log("fulfilled : ", state);
-    });
-    builder.addCase(userSignup.rejected, (state) => {
-      state.isLoading = false;
-      console.log("error");
-    });
+    // builder.addCase(userSignup.pending, (state) => {
+    //   state.isLoading = true;
+    //   console.log("pending", state.isLoading);
+    // });
+    // builder.addCase(userSignup.fulfilled, (state, action) => {
+    //   state.users.signup.push(action.payload);
+    //   state.isLoading = false;
+    //   console.log("fulfilled : ", state);
+    // });
+    // builder.addCase(userSignup.rejected, (state) => {
+    //   state.isLoading = false;
+    //   console.log("error");
+    // });
   },
 });
 

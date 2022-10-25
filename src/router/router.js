@@ -3,6 +3,7 @@ import React from "react";
 import Home from "../pages/Home";
 import Form from "../pages/Form";
 import Login from "../pages/Login";
+import Signup from "../pages/Signup";
 import Detail from "../pages/Detail";
 import Comment from "../pages/Comment";
 import AddComment from "../pages/AddComment";
@@ -15,6 +16,7 @@ const Router = () => {
         <Route path="/" element={<Home />} />
         <Route path="/form" element={<Form />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/comment" element={<Comment />} />
         <Route path="/addcomment" element={<AddComment />} />
