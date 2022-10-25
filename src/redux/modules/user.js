@@ -7,12 +7,11 @@ const initialState = {
   isLoading: false,
 };
 
-/* 로그인 정보 불러오기 */
+/* 로그인 정보 불러오기 (mypage) */
 
 export const getUser = createAsyncThunk("user/getUser", async (_, thunkAPI) => {
   try {
-    const res = await axios.get("http://localhost:3002/users");
-    console.log(res);
+    const res = await axios.get("http://54.180.29.110/users");
     /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
     return thunkAPI.fulfillWithValue(res.data);
   } catch (err) {
@@ -118,11 +117,11 @@ const postStore = createSlice({
   reducers: {},
 
   /* 비동기 관련 */
-  /* How return for pending (네트워크 요청 시작), fulfilled (네트워크 요청 끝), rejected (네트워크 요청 끝 -> 에러 발생) */
+  /* How to return for pending (네트워크 요청 시작), fulfilled (네트워크 요청 끝), rejected (네트워크 요청 끝 -> 에러 발생) */
   /* addCase는 내장함수 */
 
   extraReducers: (builder) => {
-    /* ----------- getData(전체 게시글 조회) ---------------- */
+    /* ----------- userLogin(User 정보 서버와 match) ---------------- */
     builder.addCase(userLogin.pending, (state) => {
       state.isLoading = true;
       console.log("pending", state.isLoading);
@@ -137,7 +136,7 @@ const postStore = createSlice({
       console.log("error");
     });
 
-    /* ----------- postData(Todo 추가) ---------------- */
+    /* ----------- userSignup(입력 정보를 새로 데이터베이스에 넘기는) ---------------- */
     builder.addCase(userSignup.pending, (state) => {
       state.isLoading = true;
       console.log("pending", state.isLoading);
