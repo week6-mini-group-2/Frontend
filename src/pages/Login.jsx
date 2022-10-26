@@ -1,11 +1,34 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import "../css/variable.scss";
 import Btn from "../elements/Btn";
+import useInput from "../hooks/useInput";
+import { postLogin } from "../redux/modules/user";
+import { nicknameCheck, passwordCheck } from "../shared/regExp";
 
 const Login = () => {
   const nav = useNavigate();
+  const dispatch = useDispatch();
+
+  const [nickname, nicknameHandler] = useInput("");
+  const [password, passwordHandler] = useInput("");
+  console.log("여기:", nickname, password);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    if (nickname === "" || password === "") {
+      alert("닉네임과 패스워드를 모두 입력해주세요.");
+    } else {
+      dispatch(
+        postLogin({
+          nickname,
+          password,
+        })
+      ).then((res) => console.log("res", res));
+    }
+  };
 
   return (
     <>
@@ -25,15 +48,27 @@ const Login = () => {
             </a>
             <StTiltle>EarthGreen</StTiltle>
           </StHeaderContainer>
-          <StLoginInnerBox>
+          <StLoginInnerBox onSubmit={submitHandler}>
             <StLoginInputWrap>
               <StLoginLabel>NICKNAME</StLoginLabel>
-              <StLoginInput />
+              <StLoginInput
+                type="text"
+                value={nickname}
+                onChange={nicknameHandler}
+              />
+              {!nickname ? <StHelper>아이디를 입력하세요</StHelper> : <br />}
               <StLoginLabel>PASSWORD</StLoginLabel>
-              <StLoginInput />
+              <StLoginInput
+                type="password"
+                value={password}
+                onChange={passwordHandler}
+              />
+              {!password ? <StHelper>비밀번호를 입력하세요</StHelper> : <br />}
             </StLoginInputWrap>
             <StBtnWrap>
-              <Btn size="lg">LOGIN</Btn>
+              <Btn size="lg" onClick={submitHandler}>
+                LOGIN
+              </Btn>
               <Btn size="lg" onClick={() => nav("/signup")}>
                 SIGNUP
               </Btn>
@@ -137,10 +172,17 @@ const StLoginLabel = styled.label`
 const StLoginInput = styled.input`
   width: 26em;
   height: 3em;
-  margin-bottom: 3em;
+  margin-bottom: 0.5em;
   border: none;
   border-radius: var(--radius-small);
   box-shadow: 0em 0em 0.5em lightgray;
+`;
+
+const StHelper = styled.div`
+  margin-top: 5px;
+  margin-bottom: 3em;
+  font-size: 0.75rem;
+  color: gray;
 `;
 
 const StBtnWrap = styled.div`
