@@ -13,9 +13,10 @@ import { useEffect } from "react";
 const Detail = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
+  const { id } = useParams();
+  const post = posts.find((post) => post.postId === +id);
   console.log("posts:", posts);
-  const { postId } = useParams();
-  const post = posts.filter((post) => post.id === +postId);
+  console.log("postId:", id);
 
   const removeHandler = () => {
     dispatch(removeData());
@@ -39,14 +40,14 @@ const Detail = () => {
               <StFormTitle>{post?.title}</StFormTitle>
               <StFormName>닉네임</StFormName>
             </StFormLeftTextWrap>
-            <StImageContainer>{post?.img}</StImageContainer>
+            <StImageContainer src={`${post?.imageUrl}`} />
           </StFormLeftDiv>
           <StFormRightDiv>
             <StFormContentWrap>
               <StFormContent>CONTENT</StFormContent>
-              <div>{post?.conetent}</div>
+              <div>{post?.content}</div>
             </StFormContentWrap>
-            <Comment postId={postId} />
+            <Comment postId={id} />
           </StFormRightDiv>
         </StFormInnerContainer>
         <StBtnBox>
@@ -121,7 +122,7 @@ const StFormName = styled.div`
   font-size: 0.6em;
 `;
 
-const StImageContainer = styled.div`
+const StImageContainer = styled.img`
   background: #b1b1b1;
   width: 22em;
   height: 100%;
@@ -130,6 +131,7 @@ const StImageContainer = styled.div`
   display: flex;
   flex-flow: column;
   position: relative;
+  overflow: hidden;
 `;
 
 const StFormRightDiv = styled.div`

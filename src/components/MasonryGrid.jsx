@@ -1,6 +1,5 @@
 import * as React from "react";
 import "../css/variable.scss";
-import styled from "styled-components";
 import Box from "@mui/material/Box";
 import Masonry from "@mui/lab/Masonry";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,15 +8,15 @@ import { useNavigate } from "react-router-dom";
 import { getData } from "../redux/modules/post";
 
 const MasonryGrid = () => {
-  // const nav = useNavigate();
+  const nav = useNavigate();
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
+  console.log("posts", posts);
 
   useEffect(() => {
     dispatch(getData());
   }, [dispatch]);
 
-  console.log("post test :", posts);
   return (
     <div
       style={{
@@ -42,11 +41,14 @@ const MasonryGrid = () => {
                   boxShadow: "var(--grid-shadow)",
                 }}
               />
-              <div className="masonryBehind">
+              <div
+                className="masonryBehind"
+                onClick={() => nav(`/detail/${item?.postId}`)}
+              >
                 <div className="masonryLabel">
-                  <div className="labelTitle">{item.title}</div>
+                  <div className="labelTitle">{item?.title}</div>
                 </div>
-                <p className="labelContent">{item.content}</p>
+                <p className="labelContent">{item?.content}</p>
               </div>
             </div>
           ))}

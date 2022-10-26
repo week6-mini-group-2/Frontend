@@ -1,10 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+// import axios from "axios";
+
 /* api import with environment */
 import api from "../../shared/Api";
+// import accessApi from "../../shared/AccessApi";
 
 /* InitialState */
 const initialState = {
+  posts: [{}],
   isLoading: false,
 };
 

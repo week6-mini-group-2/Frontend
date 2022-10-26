@@ -7,6 +7,7 @@ import Signup from "../pages/Signup";
 import Detail from "../pages/Detail";
 import Comment from "../pages/Comment";
 import AddComment from "../pages/AddComment";
+import UserInfo from "../pages/UserInfo";
 import NotFound from "../pages/NotFound";
 
 const Router = () => {
@@ -14,12 +15,13 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/detail/:id" element={<Detail />} />
         <Route path="/form" element={<Form />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/detail/:id" element={<Detail />} />
         <Route path="/comment" element={<Comment />} />
         <Route path="/addcomment" element={<AddComment />} />
+        <Route path="/userInfo" element={<UserInfo />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
