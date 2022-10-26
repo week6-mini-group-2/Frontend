@@ -8,6 +8,12 @@ const SIZES = {
     --button-readius: 12px;
     --button-width: 20em;
   `,
+  hm: css`
+    --button-font-size: 1.15rem;
+    --button-padding: 6px 0px;
+    --button-readius: 12px;
+    --button-width: 23em;
+  `,
 };
 
 const Btn = ({ size, disabled, onClick, children }) => {
@@ -37,12 +43,12 @@ const StyleBtn = styled.button`
   cursor: pointer;
 
   &:active {
-    box-shadow: inset 0rem -0.2rem 0.5rem white;
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
   }
   &:hover,
   &:focus {
     background: var(--grid-color);
-    color: white;
+    //color: white;
   }
 
   &:disabled {
