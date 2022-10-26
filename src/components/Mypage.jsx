@@ -11,32 +11,52 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { FaBars } from "react-icons/fa";
+import { AiOutlineCrown } from "react-icons/ai";
 
 const Mypage = () => {
   const [open, setOpen] = useState(false);
 
   const getList = () => (
-    <div style={{ width: 350 }}>
+    <div style={{ width: 290 }}>
       <List>
+        <ListItem
+          disablePadding
+          style={{
+            marginTop: "15px",
+            marginLeft: "20px",
+            marginBottom: "15px",
+          }}>
+          My page
+        </ListItem>
         <ListItem>
           <img
             src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
             alt="User"
-            style={{ width: "260px" }}
+            style={{ width: "260px", marginBottom: "15px" }}
           />
-          <ListItemButton></ListItemButton>
         </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton>test</ListItemButton>
+        <ListItem
+          style={{
+            marginLeft: "20px",
+            marginBottom: "15px",
+          }}>
+          Here is your NickName~!
         </ListItem>
+        <ListItem disablePadding></ListItem>
       </List>
       <Divider />
       <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
+        {["Reward"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <AiOutlineCrown
+                  size="25"
+                  style={{
+                    marginLeft: "10px",
+                    color: "#ffcc00",
+                  }}
+                />
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -48,7 +68,7 @@ const Mypage = () => {
   return (
     <div>
       <ToggleBadge onClick={() => setOpen(true)}>
-        <FaBars />
+        <FaBars size="40" style={{ color: "lightgray" }} />
       </ToggleBadge>
       <Drawer open={open} anchor={"left"} onClose={() => setOpen(false)}>
         {getList()}
@@ -60,15 +80,13 @@ const Mypage = () => {
 export default Mypage;
 
 const ToggleBadge = styled.button`
-  width: 80px;
-  height: 80px;
+  padding: auto;
   border-radius: 10px;
   border: none;
   background-color: #ffffff;
   box-shadow: rgba(0, 0, 0, 0.068) 0px 2px 4px, rgba(0, 0, 0, 0.11) 0px 2px 4px;
-
+  transition: all 0.6s;
   &:active {
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 10px 20px -4px inset,
-      rgba(0, 0, 0, 0.3) 0px 6px 12px -6px inset;
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
   }
 `;

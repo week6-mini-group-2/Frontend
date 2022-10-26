@@ -57,8 +57,8 @@ const GridWrap = styled.div`
 `;
 
 const StBtnBox = styled.div`
-  width: 0;
-  position: sticky;
-  top: 90%;
-  left: 95%;
+  right: 12%;
+  top: 80%;
+  display: flex;
+  position: fixed;
 `;
