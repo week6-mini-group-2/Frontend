@@ -13,7 +13,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 const Comment = ({ postId }) => {
   const nav = useNavigate();
   const dispatch = useDispatch();
-  const comments = useSelector((state) => state.comments.posts.Comments);
+  const comments = useSelector((state) => state.comments.comments);
   // const [newComment, newCommentChange] = useInput(comment.comment)
 
   const removeCommentHandler = () => {

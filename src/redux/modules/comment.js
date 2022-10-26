@@ -3,6 +3,7 @@ import axios from "axios";
 
 //initialState
 const initialState = {
+  comments: [{}],
   isLoading: false,
   error: null,
 };
