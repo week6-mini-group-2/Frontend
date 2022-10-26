@@ -23,7 +23,7 @@ const MasonryGrid = () => {
       style={{
         display: "flex",
         justifyContent: "center",
-        marginTop: "20%",
+        marginTop: "10%",
       }}>
       <Box style={{ width: "90rem", minHeight: "60rem" }}>
         <Masonry columns={6} spacing={3}>

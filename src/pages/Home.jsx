@@ -17,7 +17,7 @@ const Home = () => {
   };
 
   return (
-    <>
+    <div>
       <Header />
       <StConatainer>
         <Category />
@@ -32,13 +32,17 @@ const Home = () => {
           </StBtnBox>
         </StWrap>
       </StConatainer>
-    </>
+    </div>
   );
 };
 
 export default Home;
 
 const StConatainer = styled.div`
+  top: 10%;
+  left: 15%;
+  position: absolute;
+  z-index: -2;
   height: 100vh;
 `;
 

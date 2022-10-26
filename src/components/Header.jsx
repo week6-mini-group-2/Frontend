@@ -4,15 +4,17 @@ import styled from "styled-components";
 
 const Header = () => {
   return (
-    <StHeaderContainer>
-      <Mypage />
-      <div>
-        <a href="/">
-          <StLogo src="./logo.png" />
-        </a>
-      </div>
-      <StTiltle>EarthGreen</StTiltle>
-    </StHeaderContainer>
+    <div style={{ zIndex: 100 }}>
+      <StHeaderContainer>
+        <Mypage />
+        <div>
+          <a href="/">
+            <StLogo src="./logo.png" />
+          </a>
+        </div>
+        <StTiltle>EarthGreen</StTiltle>
+      </StHeaderContainer>
+    </div>
   );
 };
 

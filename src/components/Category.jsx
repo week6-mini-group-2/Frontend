@@ -83,7 +83,7 @@ const StTitle = styled.div`
   width: 90%;
   top: 0;
   margin: 0.5em 0em 0.3em;
-  //padding: 0.5em;
+  padding: 0.5em;
   box-shadow: 0em 0em 0.3em lightgray;
   border-radius: var(--radius-small);
 `;
