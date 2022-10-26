@@ -7,7 +7,7 @@ const Header = () => {
     <div style={{ zIndex: 100 }}>
       <StHeaderContainer>
         <Mypage />
-        <div>
+        <div style={{ marginLeft: "55rem" }}>
           <a href="/">
             <StLogo src="./logo.png" />
           </a>

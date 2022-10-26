@@ -10,13 +10,32 @@ import api from "../../shared/Api";
 const initialState = {
   posts: [{}],
   isLoading: false,
+  category: "",
 };
 
 export const getData = createAsyncThunk(
   "posts/getData",
   async (_, thunkAPI) => {
     try {
-      const res = await api.get("/posts");
+      /* /posts/category/1 */
+      const res = await api.get("/posts/");
+      console.log(res.data.result);
+
+      /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
+      return thunkAPI.fulfillWithValue(res.data.result);
+    } catch (err) {
+      console.log(err);
+      return thunkAPI.rejectWithValue(err);
+    }
+  }
+);
+
+export const sortCategory = createAsyncThunk(
+  "posts/sortCategory",
+  async (payload, thunkAPI) => {
+    try {
+      /* /posts/category/1 */
+      const res = await api.get(`/posts/category/${payload}`);
       console.log(res.data.result);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data.result);
@@ -104,6 +123,17 @@ const postStore = createSlice({
       console.log("fulfilled :", state.posts);
     });
     builder.addCase(getData.rejected, (state) => {
+      state.isLoading = false;
+      console.log("error");
+    });
+
+    /* ----------- getData(전체 게시글 조회) ---------------- */
+    builder.addCase(sortCategory.fulfilled, (state, action) => {
+      state.posts = action.payload;
+      state.isLoading = false;
+      console.log("fulfilled :", state.posts);
+    });
+    builder.addCase(sortCategory.rejected, (state) => {
       state.isLoading = false;
       console.log("error");
     });

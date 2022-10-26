@@ -8,9 +8,11 @@ import PlusBtn from "../elements/PlusBtn";
 import { useNavigate } from "react-router-dom";
 //import Mypage from "../components/Mypage";
 import MasonryGrid from "../components/MasonryGrid";
+import { useSelector, useDispatch } from "react-redux";
 
 const Home = () => {
   const nav = useNavigate();
+  const posts = useSelector((state) => state.posts.posts);
 
   const formHandler = () => {
     nav("/form");
@@ -23,7 +25,7 @@ const Home = () => {
         <Category />
         <StWrap>
           <GridWrap className="grid">
-            <MasonryGrid />
+            <MasonryGrid posts={posts} />
           </GridWrap>
           <StBtnBox>
             <PlusBtn size="lg" onClick={formHandler}>
@@ -61,8 +63,8 @@ const GridWrap = styled.div`
 `;
 
 const StBtnBox = styled.div`
-  right: 12%;
-  top: 80%;
+  right: 3%;
+  top: 90%;
   display: flex;
   position: fixed;
 `;
