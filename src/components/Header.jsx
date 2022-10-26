@@ -1,13 +1,16 @@
 import React from "react";
-
+import Mypage from "./Mypage";
 import styled from "styled-components";
 
 const Header = () => {
   return (
     <StHeaderContainer>
-      <a href="/">
-        <StLogo src="./logo.png" />
-      </a>
+      <Mypage />
+      <div>
+        <a href="/">
+          <StLogo src="./logo.png" />
+        </a>
+      </div>
       <StTiltle>EarthGreen</StTiltle>
     </StHeaderContainer>
   );
@@ -22,6 +25,8 @@ const StHeaderContainer = styled.div`
   width: 100%;
   height: 5vh;
   display: flex;
+  position: fixed;
+  text-align: center;
   align-items: center;
   padding: 1em 1.5em;
   box-shadow: 0em 0em 1em lightgray;

@@ -6,7 +6,7 @@ import Category from "../components/Category";
 import Header from "../components/Header";
 import PlusBtn from "../elements/PlusBtn";
 import { useNavigate } from "react-router-dom";
-import Mypage from "../components/Mypage";
+//import Mypage from "../components/Mypage";
 import MasonryGrid from "../components/MasonryGrid";
 
 const Home = () => {
@@ -22,7 +22,6 @@ const Home = () => {
       <StConatainer>
         <Category />
         <StWrap>
-          <Mypage />
           <GridWrap className="grid">
             <MasonryGrid />
           </GridWrap>
