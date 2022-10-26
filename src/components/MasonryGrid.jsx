@@ -24,7 +24,8 @@ const MasonryGrid = () => {
         display: "flex",
         justifyContent: "center",
         marginTop: "20%",
-      }}>
+      }}
+    >
       <Box style={{ width: "90rem", minHeight: "60rem" }}>
         <Masonry columns={6} spacing={3}>
           {posts?.map((item) => (

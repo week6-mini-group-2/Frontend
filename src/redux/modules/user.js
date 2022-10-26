@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
 import axios from "axios";
 
-/* axios import with environment */
-import api from "../../feature/Api";
+// axios import with environment
+import api from "../../shared/Api";
+
+import jwtDecode from "jwt-decode";
 
 /* InitialState */
 const initialState = {
@@ -11,11 +12,19 @@ const initialState = {
   isLoading: false,
 };
 
-/* 로그인 정보 불러오기 (mypage) */
+// header에 JWT 토큰 포함시키기
+export const setAuthToken = (token) => {
+  if (token) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  } else {
+    delete axios.defaults.headers.common["Authorization"];
+  }
+};
 
+/* 로그인 정보 불러오기 (mypage) */
 export const getUser = createAsyncThunk("user/getUser", async (_, thunkAPI) => {
   try {
-    const res = await axios.get("/users");
+    const res = await api.get("/users");
     /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
     return thunkAPI.fulfillWithValue(res.data);
   } catch (err) {
@@ -25,26 +34,35 @@ export const getUser = createAsyncThunk("user/getUser", async (_, thunkAPI) => {
 });
 
 /* 로그인 */
-
-export const userLogin = createAsyncThunk(
-  "user/userLogin",
+export const postLogin = createAsyncThunk(
+  "users/login",
   async (payload, thunkAPI) => {
     console.log("payload:", payload);
-    const res = await axios.post("/users", payload).then((res) => {
-      /* 통신 상태가 잘 이루어짐 (200) */
-      if (res.data.status === 200) {
-        /* 토큰 값 (pw) 넘겨주기 */
-
-        /* 닉네임 넘겨주기 */
-
-        return res;
-      } else {
-        return res;
-      }
-    });
-    return thunkAPI.fulfillWithValue(res.data);
+    try {
+      const res = await api.post("/users/login", payload);
+      const token = res.data.token;
+      localStorage.setItem("jwtToken", token);
+      console.log("res", res);
+      setAuthToken(token);
+      alert("로그인 성공");
+      return thunkAPI.fulfillWithValue(jwtDecode(token));
+    } catch (err) {
+      console.log(err);
+      return thunkAPI.rejectWithValue(err);
+    }
   }
 );
+
+// export const loginDb = createAsyncThunk("post/loginDb",
+//   async (db) => { //로그인 아이디와 비밀번호를 포스트요청으로 보낸다.
+//   try {
+//     const response = await axios.post(
+//       `url..........`,
+//       db
+//     );
+//     const accessToken = response.data.token;
+//
+//     return response.data;
 
 /* 회원탈퇴 */
 
@@ -52,7 +70,7 @@ export const deleteUser = createAsyncThunk(
   "user/deleteUser",
   async (_, thunkAPI) => {
     try {
-      const res = await axios.delete("/users");
+      const res = await api.delete("/users");
       console.log(res);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);
@@ -69,7 +87,7 @@ export const updateUser = createAsyncThunk(
   "user/updateUser",
   async (_, thunkAPI) => {
     try {
-      const res = await axios.patch("/users");
+      const res = await api.patch("/users");
       console.log(res);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);
@@ -115,29 +133,16 @@ const postStore = createSlice({
 
   extraReducers: (builder) => {
     /* ----------- userLogin(User 정보 서버와 match) ---------------- */
-    builder.addCase(userLogin.pending, (state) => {
+    builder.addCase(postLogin.pending, (state) => {
       state.isLoading = true;
       console.log("pending", state.isLoading);
     });
-    builder.addCase(userLogin.fulfilled, (state, action) => {
+    builder.addCase(postLogin.fulfilled, (state, action) => {
       state.posts = action.payload;
       state.isLoading = false;
       console.log("fulfilled :", state);
     });
-    builder.addCase(userLogin.rejected, (state) => {
-      state.isLoading = false;
-      console.log("error");
-    });
-
-    /* ----------- userSignup(입력 정보를 새로 데이터베이스에 넘기는) ---------------- */
-    // builder.addCase(userSignup.pending, (state) => {
-    //   state.isLoading = true;
-    //   console.log("pending", state.isLoading);
-    // });
-    builder.addCase(userSignup.fulfilled, (state, action) => {
-      console.log("fulfilled : ", state, action);
-    });
-    builder.addCase(userSignup.rejected, (state) => {
+    builder.addCase(postLogin.rejected, (state) => {
       state.isLoading = false;
       console.log("error");
     });
