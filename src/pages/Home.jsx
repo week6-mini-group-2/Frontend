@@ -6,7 +6,7 @@ import Category from "../components/Category";
 import Header from "../components/Header";
 import PlusBtn from "../elements/PlusBtn";
 import { useNavigate } from "react-router-dom";
-import Mypage from "../components/Mypage";
+//import Mypage from "../components/Mypage";
 import MasonryGrid from "../components/MasonryGrid";
 
 const Home = () => {
@@ -17,12 +17,11 @@ const Home = () => {
   };
 
   return (
-    <>
+    <div>
       <Header />
       <StConatainer>
         <Category />
         <StWrap>
-          <Mypage />
           <GridWrap className="grid">
             <MasonryGrid />
           </GridWrap>
@@ -33,13 +32,17 @@ const Home = () => {
           </StBtnBox>
         </StWrap>
       </StConatainer>
-    </>
+    </div>
   );
 };
 
 export default Home;
 
 const StConatainer = styled.div`
+  top: 10%;
+  left: 15%;
+  position: absolute;
+  z-index: -2;
   height: 100vh;
 `;
 
@@ -58,8 +61,8 @@ const GridWrap = styled.div`
 `;
 
 const StBtnBox = styled.div`
-  width: 0;
-  position: sticky;
-  top: 90%;
-  left: 95%;
+  right: 12%;
+  top: 80%;
+  display: flex;
+  position: fixed;
 `;
