@@ -26,7 +26,7 @@ const MasonryGrid = () => {
         marginTop: "20%",
       }}>
       <Box style={{ width: "90rem", minHeight: "60rem" }}>
-        <Masonry columns={6} spacing={3} id="hoverAni">
+        <Masonry columns={6} spacing={3}>
           {posts?.map((item) => (
             <div className="masonryContents">
               <img
@@ -41,7 +41,10 @@ const MasonryGrid = () => {
                 }}
               />
               <div className="masonryBehind">
-                <div className="masonryLabel">{item.title}</div>
+                <div className="masonryLabel">
+                  <div className="labelTitle">{item.title}</div>
+                </div>
+                <p className="labelContent">{item.content}</p>
               </div>
             </div>
           ))}
@@ -52,24 +55,3 @@ const MasonryGrid = () => {
 };
 
 export default MasonryGrid;
-
-/* const Temp = styled.div`
-  width: 200px;
-  height: 300px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-image: url(${(props) => props.imageUrl});
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  overflow: hidden;
-  text-align: center;
-  color: whitesmoke;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.911);
-  box-shadow: var(--grid-shadow);
-  border-radius: 7px;
-`; */
-
-/*   <div key={item.postId}>
-              <Temp imageUrl={item.imageUrl}></Temp> */
