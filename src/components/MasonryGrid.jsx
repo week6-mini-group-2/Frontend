@@ -1,5 +1,6 @@
 import * as React from "react";
 import "../css/variable.scss";
+import styled from "styled-components";
 import Box from "@mui/material/Box";
 import Masonry from "@mui/lab/Masonry";
 import { useSelector, useDispatch } from "react-redux";
@@ -26,22 +27,25 @@ const MasonryGrid = () => {
       }}
     >
       <Box style={{ width: "90rem", minHeight: "60rem" }}>
-        <Masonry columns={6} spacing={3} id="hoverAni">
+        <Masonry columns={6} spacing={3}>
           {posts?.map((item) => (
-            <div key={item.postId}>
-              <div className="masonryContents">
-                <img
-                  src={`${item.imageUrl}?w=162&auto=format`}
-                  srcSet={`${item.imageUrl}?w=162&auto=format&dpr=2 2x`}
-                  alt={item.title}
-                  loading="lazy"
-                  style={{
-                    borderRadius: 7,
-                    width: "100%",
-                    boxShadow: "var(--grid-shadow)",
-                  }}
-                />
-                <div className="masonryLabel">{item.title}</div>
+            <div className="masonryContents">
+              <img
+                src={`${item.imageUrl}?w=162&auto=format`}
+                srcSet={`${item.imageUrl}?w=162&auto=format&dpr=2 2x`}
+                alt={item.title}
+                loading="lazy"
+                style={{
+                  borderRadius: 7,
+                  width: "100%",
+                  boxShadow: "var(--grid-shadow)",
+                }}
+              />
+              <div className="masonryBehind">
+                <div className="masonryLabel">
+                  <div className="labelTitle">{item.title}</div>
+                </div>
+                <p className="labelContent">{item.content}</p>
               </div>
             </div>
           ))}
