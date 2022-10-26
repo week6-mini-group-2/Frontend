@@ -19,6 +19,7 @@ const Signup = () => {
   console.log("여기확인", nickname, password, confirmPassword);
 
   const submitHandler = (e) => {
+    e.preventDefault();
     if (nickname === "" || password === "" || confirmPassword === "") {
       window.alert("닉네임, 패스워드를 모두 입력해주세요!");
       return;
@@ -35,6 +36,7 @@ const Signup = () => {
       window.alert(
         "비밀번호는 숫자 및 영어만 입력 가능하며 대문자를 포함해야 합니다.(4~30자리)"
       );
+      return;
     }
 
     if (password !== confirmPassword) {
@@ -48,8 +50,14 @@ const Signup = () => {
         password,
         confirmPassword,
       })
-    );
-    nav("/login");
+    ).then((res) => {
+      if (parseInt(Number(res.status) / 100) === 2) {
+        window.alert(`${nickname}님 가입을 환영합니다.`);
+        nav("/login");
+      } else {
+        alert(res.payload.msg);
+      }
+    });
   };
 
   return (
@@ -62,36 +70,44 @@ const Signup = () => {
           <StText>지구를 변화시킵니다.</StText>
         </StImageTextBox>
       </StImageContainer>
-      <StLoginInnerBox onSubmit={submitHandler}>
-        <StLoginInputWrap>
-          <StLoginLabel>NICKNAME</StLoginLabel>
-          <StLoginInput
-            type="text"
-            name="nickname"
-            value={nickname || ""}
-            onChange={nicknameHandler}
-          />
-          <StLoginLabel>PASSWORD</StLoginLabel>
-          <StLoginInput
-            type="text"
-            name="password"
-            value={password || ""}
-            onChange={passwordHandler}
-          />
-          <StLoginLabel>CONFIRM PASSWORD</StLoginLabel>
-          <StLoginInput
-            type="text"
-            name="confirmPassword"
-            value={confirmPassword || ""}
-            onChange={confirmPasswordHandler}
-          />
-        </StLoginInputWrap>
-        <StBtnWrap>
-          <Btn size="lg" onClick={submitHandler}>
-            SUBMIT
-          </Btn>
-        </StBtnWrap>
-      </StLoginInnerBox>
+      <StLoginBox>
+        <StHeaderContainer>
+          <a href="/">
+            <StLogo src="./logo.png" />
+          </a>
+          <StTiltle>EarthGreen</StTiltle>
+        </StHeaderContainer>
+        <StLoginInnerBox onSubmit={submitHandler}>
+          <StLoginInputWrap>
+            <StLoginLabel>NICKNAME</StLoginLabel>
+            <StLoginInput
+              type="text"
+              name="nickname"
+              value={nickname || ""}
+              onChange={nicknameHandler}
+            />
+            <StLoginLabel>PASSWORD</StLoginLabel>
+            <StLoginInput
+              type="password"
+              name="password"
+              value={password || ""}
+              onChange={passwordHandler}
+            />
+            <StLoginLabel>CONFIRM PASSWORD</StLoginLabel>
+            <StLoginInput
+              type="password"
+              name="confirmPassword"
+              value={confirmPassword || ""}
+              onChange={confirmPasswordHandler}
+            />
+          </StLoginInputWrap>
+          <StBtnWrap>
+            <Btn size="lg" onClick={submitHandler}>
+              SUBMIT
+            </Btn>
+          </StBtnWrap>
+        </StLoginInnerBox>
+      </StLoginBox>
     </StLoginContainer>
   );
 };
@@ -100,6 +116,36 @@ export default Signup;
 
 const StLoginContainer = styled.div`
   display: flex;
+`;
+
+const StLoginBox = styled.div`
+  background: var(--base-color);
+  width: 35%;
+  height: 100vh;
+  display: flex;
+  flex-flow: column;
+  box-shadow: -0.1em 0em 0.5em lightgray;
+`;
+
+const StHeaderContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6em 0em 2em;
+`;
+
+const StLogo = styled.img`
+  width: 2em;
+  height: 2em;
+  margin-right: 0.8em;
+  font-size: 1.5em;
+`;
+
+const StTiltle = styled.p`
+  font-size: 2.4em;
+  padding-top: 0.1em;
+  color: var(--grid-color);
 `;
 
 const StImageContainer = styled.div`
