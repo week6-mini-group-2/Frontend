@@ -12,15 +12,14 @@ const api = axios.create({
     "Content-Type": "application/x-www-form-urlencoded",
     Accept: "*/*",
   },
-  // withCredentials: true,
 });
 
-// axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true;
 
 // api.interceptors.request.use(function (config) {
-//   config.headers.common["Authorization"] = access_token;
-//   config.headers.common["Refresh-Token"] = refresh_token;
-//   return config;
+// config.headers.common["Authorization"] = access_token;
+// config.headers.common["Refresh-Token"] = refresh_token;
+// return config;
 // });
 
 export default api;

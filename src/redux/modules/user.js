@@ -41,6 +41,7 @@ export const postLogin = createAsyncThunk(
     try {
       const res = await api.post("/users/login", payload);
       const token = res.data.token;
+
       localStorage.setItem("jwtToken", token);
       console.log("res", res);
       setAuthToken(token);
