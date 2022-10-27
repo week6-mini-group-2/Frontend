@@ -1,15 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
 import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import { FaBars } from "react-icons/fa";
 import { AiOutlineCrown } from "react-icons/ai";
 
@@ -25,8 +22,7 @@ const Mypage = () => {
             marginTop: "15px",
             marginLeft: "20px",
             marginBottom: "15px",
-          }}
-        >
+          }}>
           My page
         </ListItem>
         <ListItem>
@@ -40,8 +36,7 @@ const Mypage = () => {
           style={{
             marginLeft: "20px",
             marginBottom: "15px",
-          }}
-        >
+          }}>
           Here is your NickName~!
         </ListItem>
         <ListItem disablePadding></ListItem>

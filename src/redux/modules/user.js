@@ -105,7 +105,7 @@ export const userSignup = createAsyncThunk(
     try {
       const res = await api.post("/users/signup", payload);
       console.log("res:", res);
-      alert(`${payload.nickName}님 가입을 축하합니다..`);
+      alert(`${payload.nickname}님 가입을 축하합니다.`);
       return thunkAPI.fulfillWithValue(res.data);
     } catch (err) {
       console.log(err);

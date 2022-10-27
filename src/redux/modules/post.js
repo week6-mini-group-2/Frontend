@@ -10,20 +10,20 @@ import accessApi from "../../shared/AccessApi";
 const initialState = {
   posts: [{}],
   isLoading: false,
-  category: "",
+  category: null,
 };
 
-const headers = {
-  accessToken: `Bearer ${localStorage.getItem("accessToken")}`,
-  refreshToken: `Bearer ${localStorage.getItem("refreshToken")}`,
-};
+// const headers = {
+//   accessToken: `Bearer ${localStorage.getItem("accessToken")}`,
+//   refreshToken: `Bearer ${localStorage.getItem("refreshToken")}`,
+// };
 
 export const getData = createAsyncThunk(
   "posts/getData",
   async (_, thunkAPI) => {
     try {
       /* /posts/category/1 */
-      const res = await api.get("/posts/");
+      const res = await api.get("/posts");
       console.log(res.data.result);
 
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
@@ -134,7 +134,10 @@ const postStore = createSlice({
 
     /* ----------- sortCategoy(카테고리 해당 게시물 조회) ---------------- */
     builder.addCase(sortCategory.fulfilled, (state, action) => {
-      state.posts = action.payload;
+      // state.posts = action.payload;
+      state.posts = state.posts.filter(
+        (post) => post.postId === action.payload
+      );
       state.isLoading = false;
       console.log("fulfilled :", state.posts);
     });
