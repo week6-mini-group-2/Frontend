@@ -17,7 +17,7 @@ const Mypage = () => {
   const [open, setOpen] = useState(false);
 
   const getList = () => (
-    <div style={{ width: 290 }}>
+    <div>
       <List>
         <ListItem
           disablePadding
@@ -25,7 +25,8 @@ const Mypage = () => {
             marginTop: "15px",
             marginLeft: "20px",
             marginBottom: "15px",
-          }}>
+          }}
+        >
           My page
         </ListItem>
         <ListItem>
@@ -39,7 +40,8 @@ const Mypage = () => {
           style={{
             marginLeft: "20px",
             marginBottom: "15px",
-          }}>
+          }}
+        >
           Here is your NickName~!
         </ListItem>
         <ListItem disablePadding></ListItem>
@@ -68,9 +70,9 @@ const Mypage = () => {
   return (
     <div>
       <ToggleBadge onClick={() => setOpen(true)}>
-        <FaBars size="40" style={{ color: "lightgray" }} />
+        <FaBars size="30" style={{ color: "lightgray" }} />
       </ToggleBadge>
-      <Drawer open={open} anchor={"left"} onClose={() => setOpen(false)}>
+      <Drawer open={open} anchor={"right"} onClose={() => setOpen(false)}>
         {getList()}
       </Drawer>
     </div>
