@@ -9,13 +9,13 @@ import { getData } from "../redux/modules/post";
 
 const MasonryGrid = ({ posts }) => {
   const nav = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   //const posts = useSelector((state) => state.posts.posts);
   console.log("posts", posts);
 
-  useEffect(() => {
-    dispatch(getData());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getData());
+  // }, [dispatch]);
 
   return (
     <div
@@ -24,7 +24,8 @@ const MasonryGrid = ({ posts }) => {
         justifyContent: "center",
 
         marginTop: "10%",
-      }}>
+      }}
+    >
       <Box style={{ width: "90rem", minHeight: "60rem" }}>
         <Masonry columns={6} spacing={3}>
           {posts?.map((item) => (
@@ -42,7 +43,8 @@ const MasonryGrid = ({ posts }) => {
               />
               <div
                 className="masonryBehind"
-                onClick={() => nav(`/detail/${item?.postId}`)}>
+                onClick={() => nav(`/detail/${item?.postId}`)}
+              >
                 <div className="masonryLabel">
                   <div className="labelTitle">{item?.title}</div>
                 </div>
