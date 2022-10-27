@@ -44,7 +44,7 @@ const Home = () => {
     <div style={{ margin: "0 auto" }}>
       <Header />
       <StConatainer>
-        <Category setCategory={setCategoryId} />
+        <Category setCategoryId={setCategoryId} />
         <StWrap>
           <GridWrap className="grid">
             <MasonryGrid posts={posts} />

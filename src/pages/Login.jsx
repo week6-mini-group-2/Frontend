@@ -6,6 +6,7 @@ import "../css/variable.scss";
 import Btn from "../elements/Btn";
 import useInput from "../hooks/useInput";
 import { postLogin } from "../redux/modules/user";
+import Swal from "sweetalert2";
 import { nicknameCheck, passwordCheck } from "../shared/regExp";
 
 const Login = () => {
@@ -19,9 +20,17 @@ const Login = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (nickname === "" || password === "") {
-      alert("닉네임과 패스워드를 모두 입력해주세요.");
-      // } else if (!nicknameCheck(nickname) || !passwordCheck(password)) {
-      //   alert("올바른 형식이 아닙니다.");
+      Swal.fire({
+        icon: "warning",
+        title: "양식 오류",
+        text: "양식을 모두 입력해주세요.",
+      });
+    } else if (!nicknameCheck(nickname) || !passwordCheck(password)) {
+      Swal.fire({
+        icon: "warning",
+        title: "양식 오류",
+        text: "올바른 형식이 아닙니다.",
+      });
     } else {
       dispatch(
         postLogin({
