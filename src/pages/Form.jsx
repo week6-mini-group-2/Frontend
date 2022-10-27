@@ -13,42 +13,42 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import "../css/formCategory.scss";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const CommentsList = () => {
-  const nav = useNavigate();
+  // const nav = useNavigate();
   const dispatch = useDispatch();
 
   const [title, titleChange] = useInput("");
   const [content, contentChange] = useInput("");
-  const [category, setCategory] = useState("");
+  const [categoryId, setCategoryId] = useState(0);
+  console.log("categoryId", categoryId);
 
-  const [img, setImg] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   const imageUpload = () => {
     const imageURL = window.prompt("URL을 입력해주세요.");
-    setImg(imageURL);
+    setImageUrl(imageURL);
   };
 
   const imageRemove = () => {
-    setImg("");
+    setImageUrl("");
   };
 
   const submitHandler = () => {
     dispatch(
       postData({
-        category,
+        categoryId,
         title,
         content,
-        img,
+        imageUrl,
       })
     );
-
-    nav("/");
+    // nav("/");
   };
 
   const handleChange = (e) => {
-    setCategory(e.target.value);
+    setCategoryId(e.target.value);
   };
 
   return (
@@ -62,7 +62,7 @@ const CommentsList = () => {
               <Select
                 labelId="demo-select-small"
                 id="demo-select-small"
-                value={category}
+                value={categoryId}
                 label="CATEGORIES"
                 onChange={handleChange}
               >
@@ -76,7 +76,7 @@ const CommentsList = () => {
             </FormControl>
             {/* <FormCategory category={category} /> */}
             <StImageContainer>
-              <img src={img} alt="" />
+              <img src={imageUrl} alt="" />
               <StImageBtnBox>
                 <StImageUploadBtn onClick={imageUpload}>
                   ADD IMAGE

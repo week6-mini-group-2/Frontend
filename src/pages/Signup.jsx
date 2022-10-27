@@ -25,14 +25,12 @@ const Signup = () => {
       return;
     }
 
-    if (!nicknameCheck(nickname) && nickname.length < 4) {
-      window.alert(
-        "닉네임은 숫자 및 영어만 입력 가능하며 대문자를 포함해야 합니다.(3~10자리)"
-      );
+    if (!nicknameCheck(nickname)) {
+      window.alert("닉네임은 숫자 및 영어만 입력 가능합니다.(3~10자리)");
       return;
     }
 
-    if (!passwordCheck(password) && password.length < 5) {
+    if (!passwordCheck(password)) {
       window.alert(
         "비밀번호는 숫자 및 영어만 입력 가능하며 대문자를 포함해야 합니다.(4~30자리)"
       );
@@ -50,14 +48,8 @@ const Signup = () => {
         password,
         confirmPassword,
       })
-    ).then((res) => {
-      if (parseInt(Number(res.status) / 100) === 2) {
-        window.alert(`${nickname}님 가입을 환영합니다.`);
-        nav("/login");
-      } else {
-        alert(res.payload.msg);
-      }
-    });
+    );
+    nav("/login");
   };
 
   return (
@@ -83,22 +75,25 @@ const Signup = () => {
             <StLoginInput
               type="text"
               name="nickname"
-              value={nickname || ""}
+              value={nickname}
               onChange={nicknameHandler}
+              placeholder="닉네임은 3자리 이상 입력해주세요."
             />
             <StLoginLabel>PASSWORD</StLoginLabel>
             <StLoginInput
               type="password"
               name="password"
-              value={password || ""}
+              value={password}
               onChange={passwordHandler}
+              placeholder="비밀번호는 4자리 이상 입력해주세요."
             />
             <StLoginLabel>CONFIRM PASSWORD</StLoginLabel>
             <StLoginInput
               type="password"
               name="confirmPassword"
-              value={confirmPassword || ""}
+              value={confirmPassword}
               onChange={confirmPasswordHandler}
+              placeholder="비밀번호를 다시 한 번 입력해주세요."
             />
           </StLoginInputWrap>
           <StBtnWrap>

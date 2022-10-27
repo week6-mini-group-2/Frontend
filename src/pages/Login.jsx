@@ -20,13 +20,16 @@ const Login = () => {
     e.preventDefault();
     if (nickname === "" || password === "") {
       alert("닉네임과 패스워드를 모두 입력해주세요.");
+      // } else if (!nicknameCheck(nickname) || !passwordCheck(password)) {
+      //   alert("올바른 형식이 아닙니다.");
     } else {
       dispatch(
         postLogin({
           nickname,
           password,
         })
-      ).then((res) => console.log("res", res));
+      );
+      nav("/");
     }
   };
 
@@ -55,15 +58,15 @@ const Login = () => {
                 type="text"
                 value={nickname}
                 onChange={nicknameHandler}
+                placeholder="닉네임을 입력해주세요."
               />
-              {!nickname ? <StHelper>아이디를 입력하세요</StHelper> : <br />}
               <StLoginLabel>PASSWORD</StLoginLabel>
               <StLoginInput
                 type="password"
                 value={password}
                 onChange={passwordHandler}
+                placeholder="비밀번호를 입력해주세요.."
               />
-              {!password ? <StHelper>비밀번호를 입력하세요</StHelper> : <br />}
             </StLoginInputWrap>
             <StBtnWrap>
               <Btn size="lg" onClick={submitHandler}>
@@ -176,13 +179,6 @@ const StLoginInput = styled.input`
   border: none;
   border-radius: var(--radius-small);
   box-shadow: 0em 0em 0.5em lightgray;
-`;
-
-const StHelper = styled.div`
-  margin-top: 5px;
-  margin-bottom: 3em;
-  font-size: 0.75rem;
-  color: gray;
 `;
 
 const StBtnWrap = styled.div`

@@ -6,25 +6,42 @@ import Category from "../components/Category";
 import Header from "../components/Header";
 import PlusBtn from "../elements/PlusBtn";
 import { useNavigate } from "react-router-dom";
-import Mypage from "../components/Mypage";
+//import Mypage from "../components/Mypage";
 import MasonryGrid from "../components/MasonryGrid";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getData } from "../redux/modules/post";
+import { useState } from "react";
 
 const Home = () => {
   const nav = useNavigate();
+  const dispatch = useDispatch();
+  const posts = useSelector((state) => state.posts.posts);
+
+  const [categoryId, setCategoryId] = useState("");
+  console.log("categoryId", categoryId);
 
   const formHandler = () => {
     nav("/form");
   };
 
+  useEffect(() => {
+    dispatch(
+      getData({
+        categoryId,
+      })
+    );
+  }, [dispatch]);
+
   return (
-    <>
+    <div style={{ margin: "0 auto" }}>
       <Header />
       <StConatainer>
-        <Category />
+        <Category setCategory={setCategoryId} />
         <StWrap>
-          <Mypage />
           <GridWrap className="grid">
-            <MasonryGrid />
+            <MasonryGrid posts={posts} />
           </GridWrap>
           <StBtnBox>
             <PlusBtn size="lg" onClick={formHandler}>
@@ -33,13 +50,17 @@ const Home = () => {
           </StBtnBox>
         </StWrap>
       </StConatainer>
-    </>
+    </div>
   );
 };
 
 export default Home;
 
 const StConatainer = styled.div`
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  z-index: -1;
   height: 100vh;
 `;
 
@@ -58,8 +79,8 @@ const GridWrap = styled.div`
 `;
 
 const StBtnBox = styled.div`
-  width: 0;
-  position: sticky;
+  right: 3%;
   top: 90%;
-  left: 95%;
+  display: flex;
+  position: fixed;
 `;
