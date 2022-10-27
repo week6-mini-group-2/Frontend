@@ -21,7 +21,8 @@ const CommentsList = () => {
 
   const [title, titleChange] = useInput("");
   const [content, contentChange] = useInput("");
-  const [categoryId, setCategoryId] = useState("");
+  const [categoryId, setCategoryId] = useState(0);
+  console.log("categoryId", categoryId);
 
   const [imageUrl, setImageUrl] = useState("");
 

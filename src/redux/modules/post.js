@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 /* api import with environment */
 import api from "../../shared/Api";
-// import accessApi from "../../shared/AccessApi";
+import accessApi from "../../shared/AccessApi";
 
 /* InitialState */
 const initialState = {
@@ -53,7 +53,7 @@ export const postData = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log("payload:", payload);
     try {
-      const res = await api.post("/posts", payload);
+      const res = await accessApi.post("/posts", payload);
       console.log("post res:", res);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);

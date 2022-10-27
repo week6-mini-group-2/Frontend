@@ -20,8 +20,8 @@ const Login = () => {
     e.preventDefault();
     if (nickname === "" || password === "") {
       alert("닉네임과 패스워드를 모두 입력해주세요.");
-    } else if (!nicknameCheck(nickname) || !passwordCheck(password)) {
-      alert("올바른 형식이 아닙니다.");
+      // } else if (!nicknameCheck(nickname) || !passwordCheck(password)) {
+      //   alert("올바른 형식이 아닙니다.");
     } else {
       dispatch(
         postLogin({
@@ -29,7 +29,7 @@ const Login = () => {
           password,
         })
       );
-      // nav("/");
+      nav("/");
     }
   };
 

@@ -8,21 +8,37 @@ import PlusBtn from "../elements/PlusBtn";
 import { useNavigate } from "react-router-dom";
 //import Mypage from "../components/Mypage";
 import MasonryGrid from "../components/MasonryGrid";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getData } from "../redux/modules/post";
+import { useState } from "react";
 
 const Home = () => {
   const nav = useNavigate();
+  const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
+
+  const [categoryId, setCategoryId] = useState("");
+  console.log("categoryId", categoryId);
 
   const formHandler = () => {
     nav("/form");
   };
 
+  useEffect(() => {
+    dispatch(
+      getData({
+        categoryId,
+      })
+    );
+  }, [dispatch]);
+
   return (
-    <div>
+    <div style={{ margin: "0 auto" }}>
       <Header />
       <StConatainer>
-        <Category />
+        <Category setCategory={setCategoryId} />
         <StWrap>
           <GridWrap className="grid">
             <MasonryGrid posts={posts} />
@@ -41,10 +57,10 @@ const Home = () => {
 export default Home;
 
 const StConatainer = styled.div`
-  top: 10%;
-  left: 15%;
   position: absolute;
-  z-index: -2;
+  top: 10%;
+  left: 5%;
+  z-index: -1;
   height: 100vh;
 `;
 
