@@ -1,8 +1,8 @@
 // Package import
 import axios from "axios";
 
-// const accessToken = localStorage.getItem("accessToken");
-// const refreshToken = localStorage.getItem("refreshToken");
+const accessToken = localStorage.getItem("accessToken");
+const refreshToken = localStorage.getItem("refreshToken");
 
 /* 이거 질문해 보기 */
 // axios.defaults.withCredentials = true;
@@ -14,8 +14,8 @@ const accessApi = axios.create({
     /* BE 에게 무조건 보여달라고 하고 무조건 같게 적어야지 된다.. 무조건 */
     "Content-Type": "application/json",
     Accept: "*/*",
-    // accessToken: `${accessToken}`,
-    // refreshToken: `${refreshToken}`,
+    accessToken: `${accessToken}`,
+    refreshToken: `${refreshToken}`,
   },
   // withCredentials: true,
 });
