@@ -13,6 +13,11 @@ const initialState = {
   category: "",
 };
 
+const headers = {
+  accessToken: `Bearer ${localStorage.getItem("accessToken")}`,
+  refreshToken: `Bearer ${localStorage.getItem("refreshToken")}`,
+};
+
 export const getData = createAsyncThunk(
   "posts/getData",
   async (_, thunkAPI) => {
