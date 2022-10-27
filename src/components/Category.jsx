@@ -19,15 +19,15 @@ const Category = ({ setCategoryId }) => {
   // const [err, setErr] = useState(null);
 
   // const categorySelect = async (e) => {
-  //   try {
-  //     setCategory(null);
-  //     setErr(err);
-  //     const res = await api.get(`/post/category/${category}`);
-  //     console.log(res);
-  //     setCategory(res.data.result);
-  //   } catch (e) {
-  //     setErr(e);
-  //   }
+  // try {
+  // setCategory(null);
+  // setErr(err);
+  // const res = await api.get(`/post/category/${category}`);
+  // console.log(res);
+  // setCategory(res.data.result);
+  // } catch (e) {
+  // setErr(e);
+  // }
   // };
 
   return (
@@ -38,8 +38,7 @@ const Category = ({ setCategoryId }) => {
         clickable: true,
       }}
       modules={[Pagination]}
-      className="mySwiper"
-    >
+      className="mySwiper">
       <SwiperSlide>
         <StTitle>플로깅</StTitle>
         <img

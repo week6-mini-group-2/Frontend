@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import "../App.scss";
 import "../css/variable.scss";
@@ -17,7 +17,7 @@ import { useState } from "react";
 const Home = () => {
   const nav = useNavigate();
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.posts.posts);
+  const { posts } = useSelector((state) => state.posts);
 
   const [categoryId, setCategoryId] = useState(0);
   console.log("categoryId", categoryId);

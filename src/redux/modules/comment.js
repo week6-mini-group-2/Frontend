@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+
+import accessApi from "../../shared/AccessApi";
 
 //initialState
 const initialState = {
@@ -8,40 +9,40 @@ const initialState = {
   error: null,
 };
 
-// Thunk
+// 해당 post에서 comment 꺼내기
 export const getComments = createAsyncThunk(
   "comments/getComments",
-  async (_, thunkAPI) => {
-    // console.log("aaapayload:", payload);
+  async (payload, thunkAPI) => {
     try {
-      const data = await axios.get(`http://54.180.29.110/posts`);
-      console.log("data:", data);
-      return thunkAPI.fulfillWithValue(data.data);
+      const res = await accessApi.get(`/posts/${payload}`);
+      console.log("res:", res);
+      return thunkAPI.fulfillWithValue(res.data.result.comment);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
+// 해당 post에 comment 추가
 export const addComments = createAsyncThunk(
   "comments/addComments",
   async (payload, thunkAPI) => {
-    console.log("addpayload:", payload);
     try {
-      const data = await axios.post("http://54.180.29.110/posts", payload);
-      return thunkAPI.fulfillWithValue(data.data);
+      const res = await accessApi.post(`/comment/${payload.postId}`, payload);
+      return thunkAPI.fulfillWithValue(res.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
+// 해당 post에 comment 삭제
 export const removeComments = createAsyncThunk(
   "comments/deleteComments",
   async (payload, thunkAPI) => {
     console.log("id, postId:", payload);
     try {
-      await axios.delete(`http://54.180.29.110/posts${payload.id}`);
+      await accessApi.delete(`/comment/${payload.id}`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -53,11 +54,8 @@ export const editComments = createAsyncThunk(
   "comments/editComments",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.patch(
-        `http://54.180.29.110/posts${payload.id}`,
-        payload
-      );
-      return thunkAPI.fulfillWithValue(data.data);
+      const res = await accessApi.patch(`/comment/${payload.id}`, payload);
+      return thunkAPI.fulfillWithValue(res.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

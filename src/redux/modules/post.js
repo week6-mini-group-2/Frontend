@@ -10,15 +10,35 @@ import accessApi from "../../shared/AccessApi";
 const initialState = {
   posts: [{}],
   isLoading: false,
-  category: "",
+  category: null,
 };
+
+export const getData1 = createAsyncThunk(
+  "posts/getData1",
+  async (payload, thunkAPI) => {
+    api
+      .all([api.get("/posts/"), api.get(`/posts/category/${payload}`)])
+      .then(
+        api.spread((res1, res2) => {
+          const res1_ = res1.data.results;
+          const res2_ = res2.data.results;
+          if (payload === null) {
+            return thunkAPI.fulfillWithValue(res1_);
+          } else {
+            return thunkAPI.fulfillWithValue(res2_);
+          }
+        })
+      )
+      .catch((err) => console.log(err));
+  }
+);
 
 export const getData = createAsyncThunk(
   "posts/getData",
   async (_, thunkAPI) => {
     try {
       /* /posts/category/1 */
-      const res = await api.get("/posts/");
+      const res = await api.get("/posts");
       console.log(res.data.result);
 
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
