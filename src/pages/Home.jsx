@@ -61,7 +61,7 @@ export default Home;
 const StConatainer = styled.div`
   position: absolute;
   top: 10%;
-  left: 5%;
+  left: 15%;
   z-index: -1;
   height: 100vh;
 `;
