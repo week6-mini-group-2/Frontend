@@ -17,7 +17,6 @@ const Signup = () => {
   const [nickname, nicknameHandler] = useInput("");
   const [password, passwordHandler] = useInput("");
   const [confirmPassword, confirmPasswordHandler] = useInput("");
-  console.log("여기확인", nickname, password, confirmPassword);
 
   const submitHandler = (e) => {
     e.preventDefault();

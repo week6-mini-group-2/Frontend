@@ -16,7 +16,6 @@ const Home = () => {
   const { posts } = useSelector((state) => state.posts);
 
   const [categoryId, setCategoryId] = useState(0);
-  console.log("categoryId", categoryId);
 
   const formHandler = () => {
     nav("/form");
@@ -33,8 +32,6 @@ const Home = () => {
       );
     }
   }, [dispatch, categoryId]);
-
-  // useEffect()
 
   return (
     <div style={{ margin: "0 auto" }}>

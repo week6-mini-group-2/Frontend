@@ -28,10 +28,8 @@ export const getUser = createAsyncThunk(
     try {
       const res = await accessApi.get("/users/userInfo");
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
-      console.log("res:", res);
       return thunkAPI.fulfillWithValue(res.data);
     } catch (err) {
-      console.log(err);
       return thunkAPI.rejectWithValue(err);
     }
   }
@@ -42,7 +40,6 @@ export const postLogin = createAsyncThunk(
   "users/login",
   async (payload, thunkAPI) => {
     // const nav = useNavigate();
-    console.log("payload:", payload);
     try {
       const res = await api.post("/users/login", payload);
       const accessToken = res.data.accessToken;
@@ -51,12 +48,10 @@ export const postLogin = createAsyncThunk(
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
       setAuthToken(accessToken);
-      console.log("res", res);
       alert(`${payload.nickname}님 반갑습니다.`);
       // nav("/");
       return thunkAPI.fulfillWithValue(res.data);
     } catch (err) {
-      console.log(err);
       return thunkAPI.rejectWithValue(err);
     }
   }
@@ -69,11 +64,8 @@ export const deleteUser = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const res = await accessApi.delete("/users");
-      console.log(res);
-      /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);
     } catch (err) {
-      console.log(err);
       return thunkAPI.rejectWithValue(err);
     }
   }
@@ -86,11 +78,8 @@ export const updateUser = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const res = await accessApi.patch("/users");
-      console.log(res);
-      /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);
     } catch (err) {
-      console.log(err);
       return thunkAPI.rejectWithValue(err);
     }
   }
@@ -101,14 +90,11 @@ export const updateUser = createAsyncThunk(
 export const userSignup = createAsyncThunk(
   "users/signup",
   async (payload, thunkAPI) => {
-    console.log("여기payload:", payload);
     try {
       const res = await api.post("/users/signup", payload);
-      console.log("res:", res);
-      alert(`${payload.nickName}님 가입을 축하합니다..`);
+      alert(`${payload.nickname}님 가입을 축하합니다.`);
       return thunkAPI.fulfillWithValue(res.data);
     } catch (err) {
-      console.log(err);
       return thunkAPI.rejectWithValue(err);
     }
   }
@@ -139,25 +125,20 @@ const userStore = createSlice({
     builder.addCase(getUser.fulfilled, (state, action) => {
       state.users = action.payload;
       state.isLoading = false;
-      console.log("fulfilled :", state);
     });
     builder.addCase(getUser.rejected, (state) => {
       state.isLoading = false;
-      console.log("error");
     });
     /* ----------- userLogin(User 정보 서버와 match) ---------------- */
     builder.addCase(postLogin.pending, (state) => {
       state.isLoading = true;
-      console.log("pending", state.isLoading);
     });
     builder.addCase(postLogin.fulfilled, (state, action) => {
       state.users = action.payload;
       state.isLoading = false;
-      console.log("fulfilled :", state);
     });
     builder.addCase(postLogin.rejected, (state) => {
       state.isLoading = false;
-      console.log("error");
     });
   },
 });

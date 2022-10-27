@@ -15,7 +15,6 @@ const Login = () => {
 
   const [nickname, nicknameHandler] = useInput("");
   const [password, passwordHandler] = useInput("");
-  console.log("여기:", nickname, password);
 
   const submitHandler = (e) => {
     e.preventDefault();

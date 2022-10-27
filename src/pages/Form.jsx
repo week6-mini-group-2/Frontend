@@ -13,16 +13,14 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import "../css/formCategory.scss";
-import { useNavigate } from "react-router-dom";
 
 const CommentsList = () => {
-  const nav = useNavigate();
+  // const nav = useNavigate();
   const dispatch = useDispatch();
 
   const [title, titleChange] = useInput("");
   const [content, contentChange] = useInput("");
   const [categoryId, setCategoryId] = useState(0);
-  console.log("categoryId", categoryId);
 
   const [imageUrl, setImageUrl] = useState("");
 
@@ -44,7 +42,6 @@ const CommentsList = () => {
         imageUrl,
       })
     );
-    nav("/");
   };
 
   const handleChange = (e) => {

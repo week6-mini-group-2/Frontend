@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 // import axios from "axios";
 // import api from "../shared/Api";
 // Import Swiper React components
@@ -16,20 +15,6 @@ import "../css/category.scss";
 import styled from "styled-components";
 
 const Category = ({ setCategoryId }) => {
-  // const [err, setErr] = useState(null);
-
-  // const categorySelect = async (e) => {
-  // try {
-  // setCategory(null);
-  // setErr(err);
-  // const res = await api.get(`/post/category/${category}`);
-  // console.log(res);
-  // setCategory(res.data.result);
-  // } catch (e) {
-  // setErr(e);
-  // }
-  // };
-
   return (
     <Swiper
       slidesPerView={5}
@@ -38,7 +23,8 @@ const Category = ({ setCategoryId }) => {
         clickable: true,
       }}
       modules={[Pagination]}
-      className="mySwiper">
+      className="mySwiper"
+    >
       <SwiperSlide>
         <StTitle>플로깅</StTitle>
         <img

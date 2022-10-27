@@ -16,8 +16,6 @@ const Detail = () => {
   const posts = useSelector((state) => state.posts.posts);
   const { id } = useParams();
   const post = posts?.find((post) => post.postId === +id);
-  console.log("posts:", posts);
-  console.log("postId:", id);
 
   const [isEdit, setIsEdit] = useState(false);
 

@@ -2,27 +2,16 @@ import * as React from "react";
 import "../css/variable.scss";
 import Box from "@mui/material/Box";
 import Masonry from "@mui/lab/Masonry";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getData } from "../redux/modules/post";
 
 const MasonryGrid = ({ posts }) => {
   const nav = useNavigate();
-  // const dispatch = useDispatch();
-  //const posts = useSelector((state) => state.posts.posts);
-  console.log("posts", posts);
-
-  // useEffect(() => {
-  //   dispatch(getData());
-  // }, [dispatch]);
 
   return (
     <div
       style={{
         display: "flex",
         justifyContent: "center",
-
         marginTop: "10%",
       }}
     >

@@ -13,38 +13,15 @@ const initialState = {
   category: null,
 };
 
-export const getData1 = createAsyncThunk(
-  "posts/getData1",
-  async (payload, thunkAPI) => {
-    api
-      .all([api.get("/posts/"), api.get(`/posts/category/${payload}`)])
-      .then(
-        api.spread((res1, res2) => {
-          const res1_ = res1.data.results;
-          const res2_ = res2.data.results;
-          if (payload === null) {
-            return thunkAPI.fulfillWithValue(res1_);
-          } else {
-            return thunkAPI.fulfillWithValue(res2_);
-          }
-        })
-      )
-      .catch((err) => console.log(err));
-  }
-);
-
 export const getData = createAsyncThunk(
   "posts/getData",
   async (_, thunkAPI) => {
     try {
       /* /posts/category/1 */
       const res = await api.get("/posts");
-      console.log(res.data.result);
 
-      /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data.result);
     } catch (err) {
-      console.log(err);
       return thunkAPI.rejectWithValue(err);
     }
   }
@@ -56,11 +33,8 @@ export const sortCategory = createAsyncThunk(
     try {
       /* /posts/category/1 */
       const res = await api.get(`/posts/category/${payload}`);
-      console.log(res.data.result);
-      /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data.result);
     } catch (err) {
-      console.log(err);
       return thunkAPI.rejectWithValue(err);
     }
   }
@@ -71,14 +45,10 @@ export const sortCategory = createAsyncThunk(
 export const postData = createAsyncThunk(
   "posts/postData",
   async (payload, thunkAPI) => {
-    console.log("payload:", payload);
     try {
       const res = await accessApi.post("/posts", payload);
-      console.log("post res:", res);
-      /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);
     } catch (err) {
-      console.log(err);
       return thunkAPI.rejectWithValue(err);
     }
   }
@@ -92,11 +62,9 @@ export const editData = createAsyncThunk(
     console.log("여기payload:", payload);
     try {
       const res = await api.patch(`/posts/${payload.postId}`, payload);
-      console.log(res);
       /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(res.data);
     } catch (err) {
-      console.log(err);
       return thunkAPI.rejectWithValue(err);
     }
   }
@@ -109,11 +77,8 @@ export const removeData = createAsyncThunk(
   async (postId, thunkAPI) => {
     try {
       await api.delete(`/posts/${postId}`);
-      //const todoData = res.data;
-      /* thunkAPI로 payload가 undefined가 뜰 수 있기 때문에 안전하게 직접 경로로 보내주자 */
       return thunkAPI.fulfillWithValue(postId);
     } catch (err) {
-      console.log(err);
       return thunkAPI.rejectWithValue(err);
     }
   }
@@ -140,43 +105,37 @@ const postStore = createSlice({
     builder.addCase(getData.fulfilled, (state, action) => {
       state.posts = action.payload;
       state.isLoading = false;
-      console.log("fulfilled :", state.posts);
     });
     builder.addCase(getData.rejected, (state) => {
       state.isLoading = false;
-      console.log("error");
     });
 
     /* ----------- sortCategoy(카테고리 해당 게시물 조회) ---------------- */
     builder.addCase(sortCategory.fulfilled, (state, action) => {
-      state.posts = action.payload;
+      state.posts = state.posts.filter(
+        (post) => post.postId === action.payload
+      );
       state.isLoading = false;
-      console.log("fulfilled :", state.posts);
     });
     builder.addCase(sortCategory.rejected, (state) => {
       state.isLoading = false;
-      console.log("error");
     });
 
     /* ----------- postData(post 추가) ---------------- */
     builder.addCase(postData.pending, (state) => {
       state.isLoading = true;
-      console.log("pending", state.isLoading);
     });
     builder.addCase(postData.fulfilled, (state, action) => {
       state.posts.push(action.payload);
       state.isLoading = false;
-      console.log("fulfilled : ", state);
     });
     builder.addCase(postData.rejected, (state) => {
       state.isLoading = false;
-      console.log("error");
     });
 
     /* ----------- updateData(post 수정) ---------------- */
     builder.addCase(editData.pending, (state) => {
       state.isLoading = true;
-      console.log("pending");
     });
     builder.addCase(editData.fulfilled, (state, action) => {
       state.isLoading = false;
@@ -184,27 +143,22 @@ const postStore = createSlice({
         (todo) => todo.id === action.payload.id
       );
       state.posts[idx] = action.payload;
-      console.log("fulfilled : ", state);
     });
     builder.addCase(editData.rejected, (state) => {
       state.isLoading = false;
-      console.log("error");
     });
 
     /* ----------- deleteData(post 삭제) ---------------- */
     builder.addCase(removeData.pending, (state) => {
       state.isLoading = true;
-      console.log("pending");
     });
     builder.addCase(removeData.fulfilled, (state, action) => {
       state.isLoading = false;
       const idx = state.posts.findIndex((todo) => todo.id === action.payload);
       state.posts.splice([idx], 1);
-      console.log("fulfilled :", state);
     });
     builder.addCase(removeData.rejected, (state) => {
       state.isLoading = false;
-      console.log("error");
     });
   },
 });
