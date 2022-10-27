@@ -8,15 +8,18 @@ import PlusBtn from "../elements/PlusBtn";
 import { useNavigate } from "react-router-dom";
 //import Mypage from "../components/Mypage";
 import MasonryGrid from "../components/MasonryGrid";
-import { useSelector, useDispatch } from "react-redux";
-import { getData } from "../redux/modules/post";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getData, sortCategory } from "../redux/modules/post";
+import { useState } from "react";
 
 const Home = () => {
   const nav = useNavigate();
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.posts);
 
-  const [categoryId, setCategoryId] = useState("");
+  const [categoryId, setCategoryId] = useState(0);
   console.log("categoryId", categoryId);
 
   const formHandler = () => {
@@ -24,12 +27,18 @@ const Home = () => {
   };
 
   useEffect(() => {
-    dispatch(
-      getData({
-        categoryId,
-      })
-    );
-  }, [dispatch]);
+    if (categoryId === 0) {
+      dispatch(getData());
+    } else {
+      dispatch(
+        sortCategory({
+          categoryId,
+        })
+      );
+    }
+  }, [dispatch, categoryId]);
+
+  // useEffect()
 
   return (
     <div style={{ margin: "0 auto" }}>
