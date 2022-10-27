@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import "../App.scss";
 import "../css/variable.scss";
@@ -8,16 +8,13 @@ import PlusBtn from "../elements/PlusBtn";
 import { useNavigate } from "react-router-dom";
 //import Mypage from "../components/Mypage";
 import MasonryGrid from "../components/MasonryGrid";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { getData } from "../redux/modules/post";
-import { useState } from "react";
 
 const Home = () => {
   const nav = useNavigate();
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.posts.posts);
+  const { posts } = useSelector((state) => state.posts);
 
   const [categoryId, setCategoryId] = useState("");
   console.log("categoryId", categoryId);
@@ -38,7 +35,7 @@ const Home = () => {
     <div style={{ margin: "0 auto" }}>
       <Header />
       <StConatainer>
-        <Category setCategory={setCategoryId} />
+        <Category setCategoryId={setCategoryId} />
         <StWrap>
           <GridWrap className="grid">
             <MasonryGrid posts={posts} />
