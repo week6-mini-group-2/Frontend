@@ -34,7 +34,7 @@
 
 .masonryContents:hover {
   .masonryBehind {
-    transform: translateY(-100%);
+    transform: translateY(-90%);
     transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
   }
   .masonryLabel {
@@ -96,6 +96,7 @@
 }
 
 /* Mypage.jsx */
+
 .sidebarContainer {
   width: 100%;
   height: 100%;
