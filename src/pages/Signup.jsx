@@ -8,6 +8,7 @@ import useInput from "../hooks/useInput";
 import { nicknameCheck, passwordCheck } from "../shared/regExp";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 
 const Signup = () => {
   const nav = useNavigate();
@@ -21,24 +22,38 @@ const Signup = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (nickname === "" || password === "" || confirmPassword === "") {
-      window.alert("닉네임, 패스워드를 모두 입력해주세요!");
+      Swal.fire({
+        icon: "warning",
+        title: "양식 오류",
+        text: "양식을 모두 입력해주세요.",
+      });
       return;
     }
 
     if (!nicknameCheck(nickname)) {
-      window.alert("닉네임은 숫자 및 영어만 입력 가능합니다.(3~10자리)");
+      Swal.fire({
+        icon: "warning",
+        title: "양식 오류",
+        text: "닉네임은 숫자와 영어만 입력 가능합니다.(3~10자리).",
+      });
       return;
     }
 
     if (!passwordCheck(password)) {
-      window.alert(
-        "비밀번호는 숫자 및 영어만 입력 가능하며 대문자를 포함해야 합니다.(4~30자리)"
-      );
+      Swal.fire({
+        icon: "warning",
+        title: "양식 오류",
+        text: "비밀번호는 숫자 및 영어만 입력 가능하며 대문자를 포함해야 합니다.(4~30자리).",
+      });
       return;
     }
 
     if (password !== confirmPassword) {
-      window.alert("비밀번호와 비밀번호 재확인이 일치하지 않습니다.");
+      Swal.fire({
+        icon: "warning",
+        title: "양식 오류",
+        text: "비밀번호와 비밀번호 재확인이 일치하지 않습니다..",
+      });
       return;
     }
     e.preventDefault();

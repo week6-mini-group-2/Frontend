@@ -10254,6 +10254,11 @@ svgo@^2.7.0:
     picocolors "^1.0.0"
     stable "^0.1.8"
 
+sweetalert2@^11.6.2:
+  version "11.6.2"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-11.6.2.tgz#282e01bf0c4a70bda5c6dc00e384ee85c228e9c3"
+  integrity sha512-FAyAddpbcpEawDNFZDoO9XFFOc0ulECgQcadMJpsjMjrlqG7svar+ZGG3qddYYi8MZwUULrOxbtQj98EMIbH8w==
+
 swiper@^8.4.4:
   version "8.4.4"
   resolved "https://registry.npmjs.org/swiper/-/swiper-8.4.4.tgz"

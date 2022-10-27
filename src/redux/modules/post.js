@@ -46,7 +46,7 @@ export const sortCategory = createAsyncThunk(
   }
 );
 
-/* 게시글 id 값을 부여 후 todo 추가 get -> post  */
+/* 게시글 id 값을 부여 후 home 추가 get -> post  */
 
 export const postData = createAsyncThunk(
   "posts/postData",
@@ -64,7 +64,7 @@ export const postData = createAsyncThunk(
   }
 );
 
-/* 해당 id의 todo 를 update 인자에 저장 후 반환 */
+/* 해당 id의 post 를 update 인자에 저장 후 반환 */
 
 export const editData = createAsyncThunk(
   "posts/updateData",
@@ -82,7 +82,7 @@ export const editData = createAsyncThunk(
   }
 );
 
-/* 해당 id에 todo를 삭제 */
+/* 해당 id에 post를 삭제 */
 
 export const removeData = createAsyncThunk(
   "posts/deleteData",
@@ -127,7 +127,7 @@ const postStore = createSlice({
       console.log("error");
     });
 
-    /* ----------- getData(전체 게시글 조회) ---------------- */
+    /* ----------- sortCategoy(카테고리 해당 게시물 조회) ---------------- */
     builder.addCase(sortCategory.fulfilled, (state, action) => {
       state.posts = action.payload;
       state.isLoading = false;
@@ -138,7 +138,7 @@ const postStore = createSlice({
       console.log("error");
     });
 
-    /* ----------- postData(Todo 추가) ---------------- */
+    /* ----------- postData(post 추가) ---------------- */
     builder.addCase(postData.pending, (state) => {
       state.isLoading = true;
       console.log("pending", state.isLoading);
@@ -153,7 +153,7 @@ const postStore = createSlice({
       console.log("error");
     });
 
-    /* ----------- updateData(Todo 수정) ---------------- */
+    /* ----------- updateData(post 수정) ---------------- */
     builder.addCase(editData.pending, (state) => {
       state.isLoading = true;
       console.log("pending");
@@ -171,7 +171,7 @@ const postStore = createSlice({
       console.log("error");
     });
 
-    /* ----------- deleteData(Todo 삭제) ---------------- */
+    /* ----------- deleteData(post 삭제) ---------------- */
     builder.addCase(removeData.pending, (state) => {
       state.isLoading = true;
       console.log("pending");
