@@ -14,24 +14,13 @@ const Comment = ({ postId }) => {
   const nav = useNavigate();
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.comments.comments);
-  // const [newComment, newCommentChange] = useInput(comment.comment)
 
   const removeCommentHandler = () => {
-    dispatch(
-      removeComments({
-        // commentId,
-        // postId,
-        // userId,
-      })
-    );
+    dispatch(removeComments({}));
   };
 
   const editCommentHandler = () => {
-    dispatch(
-      editComments({
-        // comment: newComment,
-      })
-    );
+    dispatch(editComments({}));
   };
 
   return (

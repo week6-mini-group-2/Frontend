@@ -6,7 +6,6 @@ import { getUser } from "../redux/modules/user";
 const UserInfo = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
-  console.log("users:", users);
 
   useEffect(() => {
     dispatch(getUser());
