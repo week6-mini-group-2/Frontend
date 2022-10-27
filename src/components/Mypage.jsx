@@ -11,7 +11,7 @@ import { FaBars } from "react-icons/fa";
 import { AiOutlineCrown } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getUser } from "../redux/modules/user";
 
 const Mypage = () => {
