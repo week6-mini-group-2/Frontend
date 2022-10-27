@@ -10,14 +10,10 @@ import ListItemText from "@mui/material/ListItemText";
 import { FaBars } from "react-icons/fa";
 import { AiOutlineCrown } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getUser } from "../redux/modules/user";
 
 const Mypage = () => {
   const token = localStorage.getItem("accessToken");
   const nav = useNavigate();
-  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
   const loginHandler = () => {
@@ -29,10 +25,6 @@ const Mypage = () => {
     localStorage.removeItem("refreshToken");
     nav("/login");
   };
-
-  useEffect(() => {
-    dispatch(getUser());
-  }, [dispatch]);
 
   const getList = () => (
     <div>
@@ -60,7 +52,7 @@ const Mypage = () => {
             marginBottom: "15px",
           }}
         >
-          로그인 해주세요.
+          마이페이지입니다.
         </ListItem>
         <ListItem disablePadding></ListItem>
       </List>
