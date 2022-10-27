@@ -19,15 +19,15 @@ const Category = ({ setCategoryId }) => {
   // const [err, setErr] = useState(null);
 
   // const categorySelect = async (e) => {
-  //   try {
-  //     setCategory(null);
-  //     setErr(err);
-  //     const res = await api.get(`/post/category/${category}`);
-  //     console.log(res);
-  //     setCategory(res.data.result);
-  //   } catch (e) {
-  //     setErr(e);
-  //   }
+  // try {
+  // setCategory(null);
+  // setErr(err);
+  // const res = await api.get(`/post/category/${category}`);
+  // console.log(res);
+  // setCategory(res.data.result);
+  // } catch (e) {
+  // setErr(e);
+  // }
   // };
 
   return (
@@ -38,8 +38,7 @@ const Category = ({ setCategoryId }) => {
         clickable: true,
       }}
       modules={[Pagination]}
-      className="mySwiper"
-    >
+      className="mySwiper">
       <SwiperSlide>
         <StTitle>플로깅</StTitle>
         <img
@@ -53,6 +52,7 @@ const Category = ({ setCategoryId }) => {
         <img
           src="https://img.hankyung.com/photo/201912/99.21263281.1.jpg"
           alt="category"
+          onClick={() => setCategoryId("2")}
         />
       </SwiperSlide>
       <SwiperSlide value={3}>
@@ -60,6 +60,7 @@ const Category = ({ setCategoryId }) => {
         <img
           src="https://news.imaeil.com/photos/2020/06/11/2020061114012468124_l.png"
           alt="category"
+          onClick={() => setCategoryId("3")}
         />
       </SwiperSlide>
       <SwiperSlide value={4}>
@@ -67,6 +68,7 @@ const Category = ({ setCategoryId }) => {
         <img
           src="https://cdn.imweb.me/upload/S201808015b611f03dd013/e807469343fe1.png"
           alt="category"
+          onClick={() => setCategoryId("4")}
         />
       </SwiperSlide>
       <SwiperSlide value={5}>
@@ -74,6 +76,7 @@ const Category = ({ setCategoryId }) => {
         <img
           src="http://res.heraldm.com/phpwas/restmb_idxmake.php?idx=507&simg=/content/image/2017/07/24/20170724000924_0.jpg"
           alt="category"
+          onClick={() => setCategoryId("5")}
         />
       </SwiperSlide>
       <SwiperSlide value={6}>
@@ -81,6 +84,7 @@ const Category = ({ setCategoryId }) => {
         <img
           src="https://mblogthumb-phinf.pstatic.net/MjAxODA1MDNfMjIw/MDAxNTI1MzM1OTkzNjA4.HayuuRA56WttDT7WME0_eDGaFLNQxp68-m2zsKXISSkg.V515xS_1aNDYAQPZ1WW0fEe1CRgFrNuuY4Yt8CxqObIg.JPEG.safeppy/yaytg521092.jpg?type=w800"
           alt="category"
+          onClick={() => setCategoryId("6")}
         />
       </SwiperSlide>
     </Swiper>
