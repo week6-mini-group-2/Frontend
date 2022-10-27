@@ -9,9 +9,30 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { FaBars } from "react-icons/fa";
 import { AiOutlineCrown } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../redux/modules/user";
 
 const Mypage = () => {
+  const token = localStorage.getItem("accessToken");
+  const nav = useNavigate();
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+
+  const loginHandler = () => {
+    nav("/login");
+  };
+
+  const logoutHandler = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    nav("/login");
+  };
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
 
   const getList = () => (
     <div>
@@ -22,7 +43,8 @@ const Mypage = () => {
             marginTop: "15px",
             marginLeft: "20px",
             marginBottom: "15px",
-          }}>
+          }}
+        >
           My page
         </ListItem>
         <ListItem>
@@ -36,8 +58,9 @@ const Mypage = () => {
           style={{
             marginLeft: "20px",
             marginBottom: "15px",
-          }}>
-          Here is your NickName~!
+          }}
+        >
+          로그인 해주세요.
         </ListItem>
         <ListItem disablePadding></ListItem>
       </List>
@@ -60,6 +83,11 @@ const Mypage = () => {
           </ListItem>
         ))}
       </List>
+      {!token ? (
+        <StRedirectBtn onClick={loginHandler}>LOGIN</StRedirectBtn>
+      ) : (
+        <StRedirectBtn onClick={logoutHandler}>LOGOUT</StRedirectBtn>
+      )}
     </div>
   );
   return (
@@ -85,5 +113,23 @@ const ToggleBadge = styled.button`
   transition: all 0.6s;
   &:active {
     box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+  }
+`;
+
+const StRedirectBtn = styled.button`
+  height: 2.5em;
+  width: 10em;
+  position: absolute;
+  bottom: 5%;
+  left: 30%;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-small);
+  cursor: pointer;
+  &:active {
+    box-shadow: inset 0rem -0.2rem 0.5rem white;
+  &:hover {
+    background: var(--grid-color);
   }
 `;
